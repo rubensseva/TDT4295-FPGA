@@ -25,7 +25,6 @@ class DelayedCycelDevTester(dut: DelayedCycleDev) extends PeekPokeTester(dut) {
   step (1)
   println("Prev clk: " + peek(dut.io.testPrevVal).toString)
   println("Curr clk: " + peek(dut.io.testCurrVal).toString)
-
 }
 
 

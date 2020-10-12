@@ -17,12 +17,16 @@ class SPISlave extends Module {
   risingFSM.io.din := io.SCLK
 
   val shiftRegister = Module(new ShiftRegister)
+  shiftRegister.io.in := 0.U
 
-  when (io.SS && risingFSM.io.din) {
+  val currentByte = RegInit(UInt(8.W), 0.U)
+  io.CurrentByte := currentByte
+
+  when ((io.SS === 0.U) && (risingFSM.io.din === 1.U)) {
     shiftRegister.io.in := io.MOSI;
     io.isCurrentlyReading := true.B
   } otherwise {
     io.isCurrentlyReading := false.B
-    io.CurrentByte := shiftRegister.out
+    currentByte := shiftRegister.io.out
   }
 }
