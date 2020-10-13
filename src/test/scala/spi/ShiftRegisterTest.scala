@@ -6,6 +6,7 @@ import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class ShiftRegisterTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift register test")
+  poke(dut.io.enable, 1)
   poke(dut.io.in, 0)
   step(1)
   expect(dut.io.out, 0)
