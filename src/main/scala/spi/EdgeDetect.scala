@@ -3,11 +3,6 @@ package spi
 import chisel3._
 import chisel3.util._
 
-/*
- *
- * Shamelessly stolen from file:///home/ruben/Downloads/chisel_book.pdf
- *
- */
 
 class EdgeDetect extends Module {
   val io = IO(new Bundle{
