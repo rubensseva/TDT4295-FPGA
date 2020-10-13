@@ -9,23 +9,24 @@ import chisel3.util._
  *
  */
 
-class RisingFsm extends Module {
+class EdgeDetect extends Module {
   val io = IO(new Bundle{
     val din = Input(Bool ())
-    val risingEdge = Output(Bool ())
+    val edge = Output(Bool ())
   })
   // The two states
   val zero :: one :: Nil = Enum (2)
   // The state register
   val stateReg = RegInit(zero)
   // default value for output
-  io. risingEdge := false.B
+  io.edge := false.B
   // Next state and output logic
+  // CURRENTLY: Rising edge detection
   switch (stateReg) {
     is(zero) {
       when(io.din) {
         stateReg := one
-        io. risingEdge := true.B
+        io.edge := true.B
       }
     }
     is(one) {

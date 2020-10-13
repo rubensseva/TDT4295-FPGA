@@ -13,8 +13,8 @@ class SPISlave extends Module {
     val isCurrentlyReading = Output(UInt(1.W))
   })
 
-  val risingFSM = Module(new RisingFsm)
-  risingFSM.io.din := io.SCLK
+  val edgeDetect = Module(new EdgeDetect)
+  edgeDetect.io.din := io.SCLK
 
   val shiftRegister = Module(new ShiftRegister)
   shiftRegister.io.in := 0.U
@@ -22,7 +22,7 @@ class SPISlave extends Module {
   val currentByte = RegInit(UInt(8.W), 0.U)
   io.CurrentByte := currentByte
 
-  when ((io.SS === 0.U) && (risingFSM.io.din === 1.U)) {
+  when ((io.SS === 0.U) && (edgeDetect.io.din === 1.U)) {
     shiftRegister.io.in := io.MOSI;
     io.isCurrentlyReading := true.B
   } otherwise {
