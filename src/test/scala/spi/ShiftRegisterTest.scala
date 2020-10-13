@@ -2,9 +2,10 @@ package spi
 
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import org.scalatest._
 
 
-class ShiftRegisterTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
+class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift register test")
   poke(dut.io.enable, 1)
   poke(dut.io.in, 0)
@@ -68,10 +69,37 @@ class ShiftRegisterTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Shift register test done")
 }
 
+class ShiftRegisterWriteDisable(dut: ShiftRegister) extends PeekPokeTester(dut) {
+  println("Starting shift register write enable test")
+  poke(dut.io.enable, 0)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  poke(dut.io.in, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+}
 
-object ShiftRegisterTest extends App {
-  chisel3. iotesters .Driver (() => new ShiftRegister ()) { c =>
-    new ShiftRegisterTest (c)
+
+class ShiftRegisterTests extends FlatSpec with Matchers {
+  "ShiftReigster" should "Store correct values" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      new ShiftRegisterValuesTest(c)
+    } should be (true)
+  }
+  "ShiftReigster" should "Not write anything when write enable is false" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      new ShiftRegisterWriteDisable(c)
+    } should be (true)
   }
 }
 

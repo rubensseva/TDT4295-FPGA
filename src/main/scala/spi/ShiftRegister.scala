@@ -21,7 +21,7 @@ class ShiftRegister extends Module {
   val r6 = RegInit(UInt(1.W), 0.U)
   val r7 = RegInit(UInt(1.W), 0.U)
 
-   when(io.enable === 1.U) {
+  when(io.enable === 1.U) {
     r0 := io.in
     r1 := r0
     r2 := r1
