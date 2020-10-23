@@ -1,5 +1,6 @@
 package spi
 
+import chisel3._
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 import org.scalatest._
@@ -7,6 +8,10 @@ import org.scalatest._
 
 class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift register test")
+  poke(dut.io.enable, 0)
+  step(1)
+  step(1)
+  step(1)
   poke(dut.io.enable, 1)
   poke(dut.io.in, 0)
   step(1)
@@ -69,9 +74,12 @@ class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Shift register test done")
 }
 
-class ShiftRegisterWriteDisable(dut: ShiftRegister) extends PeekPokeTester(dut) {
-  println("Starting shift register write enable test")
+class ShiftRegisterDisabledStoreTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
+  println("Starting shift store disable test")
   poke(dut.io.enable, 0)
+  step(1)
+  step(1)
+  step(1)
   poke(dut.io.in, 1)
   step(1)
   expect(dut.io.out, 0)
@@ -89,16 +97,43 @@ class ShiftRegisterWriteDisable(dut: ShiftRegister) extends PeekPokeTester(dut) 
   expect(dut.io.out, 0)
 }
 
+class ShiftRegisterDisableShiftTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
+  println("Starting shift register shift disable test")
+  poke(dut.io.enable, 0)
+  step(1)
+  step(1)
+  step(1)
+  poke(dut.io.enable, 1)
+  poke(dut.io.in, 1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 128)
+  step(1)
+  expect(dut.io.out, 192)
+  poke(dut.io.enable, 0)
+  step(1)
+  expect(dut.io.out, 192)
+  step(1)
+  expect(dut.io.out, 192)
+  step(1)
+  expect(dut.io.out, 192)
+}
+
 
 class ShiftRegisterTests extends FlatSpec with Matchers {
-  "ShiftReigster" should "Store correct values" in {
+  "When enable is true and receiving input" should "store correct values" in {
       chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
       new ShiftRegisterValuesTest(c)
     } should be (true)
   }
-  "ShiftReigster" should "Not write anything when write enable is false" in {
+  "When enable is false and receiving input" should "not store anything" in {
       chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
-      new ShiftRegisterWriteDisable(c)
+      new ShiftRegisterDisabledStoreTest(c)
+    } should be (true)
+  }
+  "When previously received data but enable is false" should "not shift input" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      new ShiftRegisterDisableShiftTest(c)
     } should be (true)
   }
 }

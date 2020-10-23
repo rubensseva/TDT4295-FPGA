@@ -21,12 +21,4 @@ class SPISlave extends Module {
 
   val currentByte = RegInit(UInt(8.W), 0.U)
   io.CurrentByte := currentByte
-
-  when ((io.SS === 0.U) && (edgeDetect.io.din === 1.U)) {
-    shiftRegister.io.in := io.MOSI;
-    io.isCurrentlyReading := true.B
-  } otherwise {
-    io.isCurrentlyReading := false.B
-    currentByte := shiftRegister.io.out
-  }
 }
