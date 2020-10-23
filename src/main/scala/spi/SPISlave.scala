@@ -16,7 +16,7 @@ class SPISlave extends Module {
   val edgeDetect = Module(new EdgeDetect)
   edgeDetect.io.din := io.SCLK
 
-  val shiftRegister = Module(new ShiftRegister)
+  val shiftRegister = Module(new ShiftRegister(8))
   shiftRegister.io.in := 0.U
 
   val currentByte = RegInit(UInt(8.W), 0.U)

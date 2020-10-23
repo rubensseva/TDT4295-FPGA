@@ -122,17 +122,17 @@ class ShiftRegisterDisableShiftTest(dut: ShiftRegister) extends PeekPokeTester(d
 
 class ShiftRegisterTests extends FlatSpec with Matchers {
   "When enable is true and receiving input" should "store correct values" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
       new ShiftRegisterValuesTest(c)
     } should be (true)
   }
   "When enable is false and receiving input" should "not store anything" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
       new ShiftRegisterDisabledStoreTest(c)
     } should be (true)
   }
   "When previously received data but enable is false" should "not shift input" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister ()) { c =>
+      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
       new ShiftRegisterDisableShiftTest(c)
     } should be (true)
   }
