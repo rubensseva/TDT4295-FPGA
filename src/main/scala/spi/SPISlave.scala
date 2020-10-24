@@ -13,12 +13,23 @@ class SPISlave extends Module {
     val isCurrentlyReading = Output(UInt(1.W))
   })
 
+  io.isCurrentlyReading := 0.U
+
   val edgeDetect = Module(new EdgeDetect(true))
   edgeDetect.io.din := io.SCLK
 
   val shiftRegister = Module(new ShiftRegister(8, true))
+  shiftRegister.io.enable := 0.U
   shiftRegister.io.in := 0.U
 
-  val currentByte = RegInit(UInt(8.W), 0.U)
-  io.CurrentByte := currentByte
+  io.CurrentByte := shiftRegister.io.out
+
+  when (!io.SS) {
+    io.isCurrentlyReading := 1.U
+    when (edgeDetect.io.edge) {
+      printf("Edge detected!\n")
+      shiftRegister.io.enable := 1.U
+      shiftRegister.io.in := io.MOSI
+    }
+  }
 }

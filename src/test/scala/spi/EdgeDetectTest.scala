@@ -14,6 +14,7 @@ class EdgeDetectRisingEdgeTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
   expect(dut.io.edge, 0)
   poke(dut.io.din, 1)
   expect(dut.io.edge, 1)
+  println("Should be 1 " + peek(dut.io.edge).toString(10))
   step(1)
   expect(dut.io.edge, 0)
   poke(dut.io.din, 1)

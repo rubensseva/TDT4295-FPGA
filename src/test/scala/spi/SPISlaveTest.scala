@@ -98,14 +98,16 @@ class SPISlaveValuesTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
   // 4
   poke(dut.io.SCLK, 1);
+  poke(dut.io.MOSI, 1);
   step(3);
   poke(dut.io.SCLK, 0);
   step(3);
   
   // 5
   poke(dut.io.SCLK, 1);
+  poke(dut.io.MOSI, 0);
   step(3);
-  poke(dut.io.SCLK, 1);
+  poke(dut.io.SCLK, 0);
   step(3);
 
   // 6
@@ -116,145 +118,155 @@ class SPISlaveValuesTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
   // 7
   poke(dut.io.SCLK, 1);
+  poke(dut.io.MOSI, 1);
   step(3);
-  poke(dut.io.SCLK, 1);
+  poke(dut.io.SCLK, 0);
   step(3);
 
   // 8
   poke(dut.io.SCLK, 1);
+  poke(dut.io.MOSI, 1);
   step(3);
-  poke(dut.io.SCLK, 1);
+  poke(dut.io.SCLK, 0);
   step(3);
 
   
   poke(dut.io.SS, 1);
-  expect(dut.io.CurrentByte, 67);
+  expect(dut.io.CurrentByte, 83);
 }
+
 
 class SPISlaveSlowClockTest(dut: SPISlave) extends PeekPokeTester(dut) {
   println("Starting SPISlave slow clock test")
   poke(dut.io.SCLK, 0);
   poke(dut.io.SS, 1);
-  step(100000);
+  step(1000)
 
   // 1
   poke (dut.io.SS, 0);
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 0);
-  step(10000); 
+  step(100)
   poke(dut.io.SCLK, 0); 
-  step(10000);
+  step(100)
 
   // 2
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 1);
-  step(10000);
+  step(100)
   poke(dut.io.SCLK, 0);
-  step(1000);
+  step(100)
 
   // 3
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 0);
-  step(10000);
+  step(100)
   poke(dut.io.SCLK, 0);
-  step(10000);
+  step(100)
 
   // 4
   poke(dut.io.SCLK, 1);
-  step(10000);
+  poke(dut.io.MOSI, 1);
+  step(100)
   poke(dut.io.SCLK, 0);
-  step(10000);
+  step(100)
   
   // 5
   poke(dut.io.SCLK, 1);
-  step(10000);
-  poke(dut.io.SCLK, 1);
-  step(10000);
+  poke(dut.io.MOSI, 0);
+  step(100)
+  poke(dut.io.SCLK, 0);
+  step(100)
 
   // 6
   poke(dut.io.SCLK, 1);
-  step(10000);
+  step(100)
   poke(dut.io.SCLK, 0);
-  step(10000);
+  step(100)
 
   // 7
   poke(dut.io.SCLK, 1);
-  step(10000);
-  poke(dut.io.SCLK, 1);
-  step(10000);
+  poke(dut.io.MOSI, 1);
+  step(100)
+  poke(dut.io.SCLK, 0);
+  step(100)
 
   // 8
   poke(dut.io.SCLK, 1);
-  step(10000);
-  poke(dut.io.SCLK, 1);
-  step(10000);
-
+  poke(dut.io.MOSI, 1);
+  step(100)
+  poke(dut.io.SCLK, 0);
+  step(100)
   
   poke(dut.io.SS, 1);
-  expect(dut.io.CurrentByte, 67);
+  expect(dut.io.CurrentByte, 83);
 }
 
 class SPISlaveFastClockTest(dut: SPISlave) extends PeekPokeTester(dut) {
   println("Starting SPISlave fast clock test")
   poke(dut.io.SCLK, 0);
   poke(dut.io.SS, 1);
-  step(1);
+  step(1)
 
   // 1
   poke (dut.io.SS, 0);
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 0);
-  step(2);
-  poke(dut.io.SCLK, 0);
-  step(2);
+  step(2)
+  poke(dut.io.SCLK, 0); 
+  step(2)
 
   // 2
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 1);
-  step(2);
+  step(2)
   poke(dut.io.SCLK, 0);
-  step(2);
+  step(2)
 
   // 3
   poke(dut.io.SCLK, 1);
   poke(dut.io.MOSI, 0);
-  step(2);
+  step(2)
   poke(dut.io.SCLK, 0);
-  step(2);
+  step(2)
 
   // 4
   poke(dut.io.SCLK, 1);
-  step(2);
+  poke(dut.io.MOSI, 1);
+  step(2)
   poke(dut.io.SCLK, 0);
-  step(2);
+  step(2)
   
   // 5
   poke(dut.io.SCLK, 1);
-  step(2);
-  poke(dut.io.SCLK, 1);
-  step(2);
+  poke(dut.io.MOSI, 0);
+  step(2)
+  poke(dut.io.SCLK, 0);
+  step(2)
 
   // 6
   poke(dut.io.SCLK, 1);
-  step(2);
+  step(2)
   poke(dut.io.SCLK, 0);
-  step(2);
+  step(2)
 
   // 7
   poke(dut.io.SCLK, 1);
-  step(2);
-  poke(dut.io.SCLK, 1);
-  step(2);
+  poke(dut.io.MOSI, 1);
+  step(2)
+  poke(dut.io.SCLK, 0);
+  step(2)
 
   // 8
   poke(dut.io.SCLK, 1);
-  step(2);
-  poke(dut.io.SCLK, 1);
-  step(2);
-
+  poke(dut.io.MOSI, 1);
+  step(2)
+  poke(dut.io.SCLK, 0);
+  step(2)
   
   poke(dut.io.SS, 1);
-  expect(dut.io.CurrentByte, 67);
+  expect(dut.io.CurrentByte, 83);
+
 }
 
 class SPISlaveDisabledSimpleTest(dut: SPISlave) extends PeekPokeTester(dut) {
@@ -332,7 +344,7 @@ class SPISlaveTests extends FlatSpec with Matchers {
     } should be (true)
   }
   "When master is sending 67" should "should output 67" in {
-      chisel3.iotesters.Driver (() => new SPISlave) { c =>
+      chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator"), () => new SPISlave) { c =>
       new SPISlaveValuesTest(c)
     } should be (true)
   }
