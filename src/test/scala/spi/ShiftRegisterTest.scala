@@ -74,6 +74,71 @@ class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Shift register test done")
 }
 
+
+class ShiftRegisterOtherWidthValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
+  println("Starting shift other width register test")
+  poke(dut.io.enable, 0)
+  step(1)
+  step(1)
+  step(1)
+  poke(dut.io.enable, 1)
+  poke(dut.io.in, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  poke(dut.io.in, 1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 4096)
+  step(1)
+  expect(dut.io.out, 6144)
+  step(1)
+  expect(dut.io.out, 7168)
+  step(1)
+  expect(dut.io.out, 7680)
+  step(1)
+  expect(dut.io.out, 7936)
+  step(1)
+  expect(dut.io.out, 8064)
+  step(1)
+  expect(dut.io.out, 8128)
+  step(1)
+  expect(dut.io.out, 8160)
+  step(1)
+  expect(dut.io.out, 8176)
+  step(1)
+  expect(dut.io.out, 8184)
+  step(1)
+  expect(dut.io.out, 8188)
+  step(1)
+  expect(dut.io.out, 8190)
+  step(1)
+  expect(dut.io.out, 8191)
+  step(1)
+  expect(dut.io.out, 8191)
+  step(1)
+  expect(dut.io.out, 8191)
+  step(1)
+  expect(dut.io.out, 8191)
+  step(1)
+  expect(dut.io.out, 8191)
+  poke(dut.io.in, 0)
+  step(1)
+  expect(dut.io.out, 4095)
+  step(1)
+  expect(dut.io.out, 2047)
+  step(1)
+  expect(dut.io.out, 1023)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 4607)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 6399)
+  println("Shift register test done")
+}
+
 class ShiftRegisterDisabledStoreTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift store disable test")
   poke(dut.io.enable, 0)
@@ -124,6 +189,11 @@ class ShiftRegisterTests extends FlatSpec with Matchers {
   "When enable is true and receiving input" should "store correct values" in {
       chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
       new ShiftRegisterValuesTest(c)
+    } should be (true)
+  }
+  "When different width, enable is true and receiving input" should "store correct values" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (13)) { c =>
+      new ShiftRegisterOtherWidthValuesTest(c)
     } should be (true)
   }
   "When enable is false and receiving input" should "not store anything" in {

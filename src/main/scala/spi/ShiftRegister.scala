@@ -9,7 +9,7 @@ class ShiftRegister(width: Int) extends Module {
     val in        = Input(UInt(1.W))
     val enable    = Input(UInt(1.W))
 
-    val out       = Output(UInt(8.W))
+    val out       = Output(UInt(width.W))
   })
 
   val registers = RegInit(VecInit(Seq.fill(width)(0.U(1.W))))
