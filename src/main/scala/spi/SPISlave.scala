@@ -37,3 +37,7 @@ class SPISlave extends Module {
     }
   }
 }
+
+object SPISlave extends App {
+  chisel3.Driver.execute(args, () => new SPISlave)
+}
