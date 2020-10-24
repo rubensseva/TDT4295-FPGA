@@ -246,27 +246,27 @@ class ShiftRegisterDisableShiftTest(dut: ShiftRegister) extends PeekPokeTester(d
 
 
 class ShiftRegisterTests extends FlatSpec with Matchers {
-  // "When LSB first, width of 8, enable is true and receiving input" should "store correct values" in {
-  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
-  //     new ShiftRegisterValuesTest(c)
-  //   } should be (true)
-  // }
-  // "When LSB first, width of 13, enable is true and receiving input" should "store correct values" in {
-  //     chisel3.iotesters.Driver (() => new ShiftRegister (13, false)) { c =>
-  //     new ShiftRegisterOtherWidthValuesTest(c)
-  //   } should be (true)
-  // }
-  // "When LSB first, width of 8, enable is false and receiving input" should "not store anything" in {
-  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
-  //     new ShiftRegisterDisabledStoreTest(c)
-  //   } should be (true)
-  // }
-  // "When LSB first, width of 8, previously received data but enable is false" should "not shift input" in {
-  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
-  //     new ShiftRegisterDisableShiftTest(c)
-  //   } should be (true)
-  // }
-  "When MSB first, width of 8, previously received data but enable is false" should "not shift input" in {
+  "When LSB first, width of 8, enable is true and receiving input" should "store correct values" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+      new ShiftRegisterValuesTest(c)
+    } should be (true)
+  }
+  "When LSB first, width of 13, enable is true and receiving input" should "store correct values" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (13, false)) { c =>
+      new ShiftRegisterOtherWidthValuesTest(c)
+    } should be (true)
+  }
+  "When LSB first, width of 8, enable is false and receiving input" should "not store anything" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+      new ShiftRegisterDisabledStoreTest(c)
+    } should be (true)
+  }
+  "When LSB first, width of 8, previously received data but enable is false" should "not shift input" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+      new ShiftRegisterDisableShiftTest(c)
+    } should be (true)
+  }
+  "When MSB first, width of 8, enable is true and receiving input" should "store correct values" in {
       chisel3.iotesters.Driver (() => new ShiftRegister (8, true)) { c =>
       new ShiftRegisterMSBFirstValuesTest(c)
     } should be (true)

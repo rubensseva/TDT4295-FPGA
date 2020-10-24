@@ -26,5 +26,5 @@ class ShiftRegister(width: Int, MSBFirst: Boolean) extends Module {
     io.out := Cat(registers)
   }
 
-  printf("%b\n", io.out)
+  printf("Shift register out: %b\n", io.out)
 }
