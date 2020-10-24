@@ -333,7 +333,7 @@ class SPISlaveDisabledSimpleTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
 
 class SPISlaveTests extends FlatSpec with Matchers {
-  "When master is sending 128" should "should output 128" in {
+  "When master is sending 128" should "output 128" in {
       chisel3.iotesters.Driver (() => new SPISlave) { c =>
       new SPISlaveSimpleTest(c)
     } should be (true)
@@ -343,17 +343,17 @@ class SPISlaveTests extends FlatSpec with Matchers {
       new SPISlaveDisabledSimpleTest(c)
     } should be (true)
   }
-  "When master is sending 67" should "should output 67" in {
+  "When master is sending 67" should "output 67" in {
       chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator"), () => new SPISlave) { c =>
       new SPISlaveValuesTest(c)
     } should be (true)
   }
-  "When master is sending 67, and clock is really slow" should "should still output 67" in {
+  "When master is sending 67, and clock is really slow" should "still output 67" in {
       chisel3.iotesters.Driver (() => new SPISlave) { c =>
       new SPISlaveSlowClockTest(c)
     } should be (true)
   }
-  "When master is sending 67, and clock is as fast as allowed" should "should still output 67" in {
+  "When master is sending 67, and clock is as fast as allowed" should "still output 67" in {
       chisel3.iotesters.Driver (() => new SPISlave) { c =>
       new SPISlaveFastClockTest(c)
     } should be (true)

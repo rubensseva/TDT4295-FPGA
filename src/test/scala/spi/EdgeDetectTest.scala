@@ -51,7 +51,7 @@ class EdgeDetectFallingEdgeTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
 
 
 class EdgeDetectTests extends FlatSpec with Matchers {
-    "When in rising edge config and receiving values" should "only detect rising edge edge" in {
+    "When in rising edge config and receiving values" should "only detect rising edge" in {
       chisel3.iotesters.Driver (() => new EdgeDetect (false)) { c =>
       new EdgeDetectRisingEdgeTest(c)
     } should be (true)
