@@ -13,7 +13,7 @@ class SPISlave extends Module {
     val isCurrentlyReading = Output(UInt(1.W))
   })
 
-  val edgeDetect = Module(new EdgeDetect)
+  val edgeDetect = Module(new EdgeDetect(true))
   edgeDetect.io.din := io.SCLK
 
   val shiftRegister = Module(new ShiftRegister(8, true))

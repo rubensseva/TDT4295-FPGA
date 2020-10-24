@@ -5,10 +5,10 @@ import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 import org.scalatest._
 
 
-class EdgeDetectValuesTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
+class EdgeDetectRisingEdgeTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
   println("Starting rising edge test")
   poke(dut.io.din, 0)
-  step(1)
+  step(5)
   expect(dut.io.edge, 0)
   step(1)
   expect(dut.io.edge, 0)
@@ -24,14 +24,40 @@ class EdgeDetectValuesTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
   expect(dut.io.edge, 0)
   poke(dut.io.din, 0)
   expect(dut.io.edge, 0)
+  step(10)
+  expect(dut.io.edge, 0)
+}
+
+class EdgeDetectFallingEdgeTest(dut: EdgeDetect) extends PeekPokeTester(dut) {
+  println("Starting rising edge test")
+  poke(dut.io.din, 0)
+  step(5)
+  expect(dut.io.edge, 0)
+  step(1)
+  poke(dut.io.din, 1)
+  expect(dut.io.edge, 0)
+  step(1)
+  expect(dut.io.edge, 0)
+  step(1)
+  poke(dut.io.din, 0)
+  expect(dut.io.edge, 1)
+  step(1)
+  expect(dut.io.edge, 0)
+  step(10)
+  expect(dut.io.edge, 0)
 }
 
 
 
 class EdgeDetectTests extends FlatSpec with Matchers {
-  "When receiving values" should "detect edge" in {
-      chisel3.iotesters.Driver (() => new EdgeDetect ()) { c =>
-      new EdgeDetectValuesTest(c)
+    "When in rising edge config and receiving values" should "only detect rising edge edge" in {
+      chisel3.iotesters.Driver (() => new EdgeDetect (false)) { c =>
+      new EdgeDetectRisingEdgeTest(c)
+    } should be (true)
+  }
+  "When in falling edge config receiving values" should "only detect falling edge" in {
+      chisel3.iotesters.Driver (() => new EdgeDetect (true)) { c =>
+      new EdgeDetectFallingEdgeTest(c)
     } should be (true)
   }
 }

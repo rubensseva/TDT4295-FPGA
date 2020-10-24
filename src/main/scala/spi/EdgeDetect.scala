@@ -4,29 +4,33 @@ import chisel3._
 import chisel3.util._
 
 
-class EdgeDetect extends Module {
+// fallingEdge param is just for which edge to detect. If it is false, EdgeDetect will
+// detect on rising edge instead.
+class EdgeDetect(fallingEdge: Boolean) extends Module {
   val io = IO(new Bundle{
     val din = Input(Bool ())
     val edge = Output(Bool ())
   })
-  // The two states
-  val zero :: one :: Nil = Enum (2)
-  // The state register
-  val stateReg = RegInit(zero)
-  // default value for output
+
+  val stateReg = RegInit(UInt(1.W), 0.U)
+
   io.edge := false.B
-  // Next state and output logic
-  // CURRENTLY: Rising edge detection
+
   switch (stateReg) {
-    is(zero) {
+    is(0.U) {
       when(io.din) {
-        stateReg := one
-        io.edge := true.B
+        stateReg := 1.U
+        if (!fallingEdge) {
+          io.edge := true.B
+        } 
       }
     }
-    is(one) {
+    is(1.U) {
       when (!io.din) {
-        stateReg := zero
+        stateReg := 0.U
+        if (fallingEdge) {
+          io.edge := true.B
+        } 
       }
     }
   }
