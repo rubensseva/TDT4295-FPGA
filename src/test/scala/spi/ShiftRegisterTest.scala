@@ -9,9 +9,7 @@ import org.scalatest._
 class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift register test")
   poke(dut.io.enable, 0)
-  step(1)
-  step(1)
-  step(1)
+  step(3)
   poke(dut.io.enable, 1)
   poke(dut.io.in, 0)
   step(1)
@@ -78,9 +76,7 @@ class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
 class ShiftRegisterOtherWidthValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift other width register test")
   poke(dut.io.enable, 0)
-  step(1)
-  step(1)
-  step(1)
+  step(3)
   poke(dut.io.enable, 1)
   poke(dut.io.in, 0)
   step(1)
@@ -142,9 +138,7 @@ class ShiftRegisterOtherWidthValuesTest(dut: ShiftRegister) extends PeekPokeTest
 class ShiftRegisterDisabledStoreTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift store disable test")
   poke(dut.io.enable, 0)
-  step(1)
-  step(1)
-  step(1)
+  step(3)
   poke(dut.io.in, 1)
   step(1)
   expect(dut.io.out, 0)
