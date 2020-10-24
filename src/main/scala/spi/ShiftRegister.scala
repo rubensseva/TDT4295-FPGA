@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 
 
-class ShiftRegister(width: Int) extends Module {
+class ShiftRegister(width: Int, MSBFirst: Boolean) extends Module {
   val io = IO(new Bundle {
     val in        = Input(UInt(1.W))
     val enable    = Input(UInt(1.W))
@@ -20,7 +20,11 @@ class ShiftRegister(width: Int) extends Module {
     }
   }
 
-  io.out := Cat(registers)
+  if (MSBFirst) {
+    io.out := Reverse(Cat(registers))
+  } else {
+    io.out := Cat(registers)
+  }
 
   printf("%b\n", io.out)
 }

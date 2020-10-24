@@ -72,6 +72,72 @@ class ShiftRegisterValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Shift register test done")
 }
 
+class ShiftRegisterMSBFirstValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
+  println("Starting shift register MSB first test")
+  poke(dut.io.enable, 0)
+  step(3)
+  poke(dut.io.enable, 1)
+  poke(dut.io.in, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 0)
+  poke(dut.io.in, 1)
+  expect(dut.io.out, 0)
+  step(1)
+  expect(dut.io.out, 1)
+  step(1)
+  expect(dut.io.out, 3)
+  step(1)
+  expect(dut.io.out, 7)
+  step(1)
+  expect(dut.io.out, 15)
+  step(1)
+  expect(dut.io.out, 31)
+  step(1)
+  expect(dut.io.out, 63)
+  step(1)
+  expect(dut.io.out, 127)
+  step(1)
+  expect(dut.io.out, 255)
+  step(1)
+  expect(dut.io.out, 255)
+  step(1)
+  expect(dut.io.out, 255)
+  poke(dut.io.in, 0)
+  step(1)
+  expect(dut.io.out, 254)
+  step(1)
+  expect(dut.io.out, 252)
+  step(1)
+  expect(dut.io.out, 248)
+  step(1)
+  expect(dut.io.out, 240)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 225)
+  poke(dut.io.in, 1)
+  step(1)
+  expect(dut.io.out, 195)
+  println("Shift register test done")
+}
+
 
 class ShiftRegisterOtherWidthValuesTest(dut: ShiftRegister) extends PeekPokeTester(dut) {
   println("Starting shift other width register test")
@@ -180,24 +246,29 @@ class ShiftRegisterDisableShiftTest(dut: ShiftRegister) extends PeekPokeTester(d
 
 
 class ShiftRegisterTests extends FlatSpec with Matchers {
-  "When enable is true and receiving input" should "store correct values" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
-      new ShiftRegisterValuesTest(c)
-    } should be (true)
-  }
-  "When different width, enable is true and receiving input" should "store correct values" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister (13)) { c =>
-      new ShiftRegisterOtherWidthValuesTest(c)
-    } should be (true)
-  }
-  "When enable is false and receiving input" should "not store anything" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
-      new ShiftRegisterDisabledStoreTest(c)
-    } should be (true)
-  }
-  "When previously received data but enable is false" should "not shift input" in {
-      chisel3.iotesters.Driver (() => new ShiftRegister (8)) { c =>
-      new ShiftRegisterDisableShiftTest(c)
+  // "When LSB first, width of 8, enable is true and receiving input" should "store correct values" in {
+  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+  //     new ShiftRegisterValuesTest(c)
+  //   } should be (true)
+  // }
+  // "When LSB first, width of 13, enable is true and receiving input" should "store correct values" in {
+  //     chisel3.iotesters.Driver (() => new ShiftRegister (13, false)) { c =>
+  //     new ShiftRegisterOtherWidthValuesTest(c)
+  //   } should be (true)
+  // }
+  // "When LSB first, width of 8, enable is false and receiving input" should "not store anything" in {
+  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+  //     new ShiftRegisterDisabledStoreTest(c)
+  //   } should be (true)
+  // }
+  // "When LSB first, width of 8, previously received data but enable is false" should "not shift input" in {
+  //     chisel3.iotesters.Driver (() => new ShiftRegister (8, false)) { c =>
+  //     new ShiftRegisterDisableShiftTest(c)
+  //   } should be (true)
+  // }
+  "When MSB first, width of 8, previously received data but enable is false" should "not shift input" in {
+      chisel3.iotesters.Driver (() => new ShiftRegister (8, true)) { c =>
+      new ShiftRegisterMSBFirstValuesTest(c)
     } should be (true)
   }
 }
