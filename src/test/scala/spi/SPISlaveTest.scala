@@ -344,7 +344,7 @@ class SPISlaveTests extends FlatSpec with Matchers {
     } should be (true)
   }
   "When master is sending 67" should "output 67" in {
-      chisel3.iotesters.Driver.execute(Array("--backend-name", "verilator"), () => new SPISlave) { c =>
+      chisel3.iotesters.Driver (() => new SPISlave) { c =>
       new SPISlaveValuesTest(c)
     } should be (true)
   }
