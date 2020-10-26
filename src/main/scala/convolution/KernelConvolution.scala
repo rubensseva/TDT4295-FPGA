@@ -1,10 +1,9 @@
 package Ex0
 
 import chisel3._
-import chisel3.util.Counter
-import chisel3.experimental.MultiIOModule
+import chisel3.util._
 
-class KernelConvolution(val kernelSize: Int, val nModules: Int) extends MultiIOModule {
+class KernelConvolution(val kernelSize: Int, val nModules: Int) extends Module {
     
     val io = IO(
         new Bundle {

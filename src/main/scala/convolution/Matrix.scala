@@ -1,6 +1,7 @@
 package Ex0
 
 import chisel3._
+import chisel3.util._
 
 // This import statement makes the scala vector invisible, reducing confusion
 import scala.collection.immutable.{ Vector => _ }
