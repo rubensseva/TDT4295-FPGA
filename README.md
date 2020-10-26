@@ -1,23 +1,16 @@
+# Chisel code for TDT4295 Datamaskinprosjekt
+
+# Convolution
+
+TODO: Fill me in
+
 # Chisel SPI Slave
 
-Simple chisel project that implements an SPI slave
-
+In `/src/main/scala/spi` you can find chisel code that implements a simple SPI slave
 Made from [chisel-template](https://github.com/freechipsproject/chisel-template)
 
-# How to run
+# How to run all tests
 
-## Run and output verilog
-1. `$ sbt`
-2. `$ run`
-
-## Running tests
-Waveforms can be found under the `test_run_dir/` directory after running the test
-### Run all tests
-1. `$ sbt`
-2. `$ test`
-
-### Run specific test SPISlaveTests
-1. `$ sbt`
-2. `$ testOnly spi.SPISlaveTests`
-(You can press tab after `spi` to see other tests available)
-
+1.  install sbt and chisel
+2.  `$ sbt`
+3.  `$ test`
