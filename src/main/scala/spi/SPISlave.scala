@@ -9,7 +9,6 @@ class SPISlave extends Module {
   val io = IO(new Bundle{
     val SCLK                = Input(UInt(1.W))  // SPI clock, should be set by SPI master
     val MOSI                = Input(UInt(1.W))  // Slave input
-    val MISO                = Input(UInt(1.W))  // Slave output (not used)
     val SS                  = Input(UInt(1.W))  // Slave Select, only do stuff when this signal is low 
 
     val CurrentByte         = Output(UInt(8.W)) // The current byte that is read
