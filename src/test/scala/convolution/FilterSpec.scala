@@ -9,7 +9,7 @@ import org.scalatest._
 class FilterSpec extends FlatSpec with Matchers {
   import FilterTests._
 
-  val parallelPixels = 1
+  val parallelPixels = 18
 
   behavior of "FilterSpec"
   it should "Filter" in {
@@ -32,23 +32,44 @@ object FilterTests {
 
     val kernelSize = 3
 
-    val image: List[UInt] = List( 
+    val imageWidth = 6
+    val imageHeight = 6
+
+    //poke(c.io.SPI_filterIndex, 0.U)
+
+    /*val image: List[UInt] = List( 
         200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
         100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
         50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W),
         200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
         100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
         50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W)
+    )*/
+
+    poke(c.io.SPI_filterIndex, 1.U)
+
+    val image: List[UInt] = List( 
+        50.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 44.U(16.W),
+        77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        44.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 61.U(16.W)
     )
 
-    println("running filter...................")
-    poke(c.io.test_in, true.B)
-    step(kernelSize + 1)
-    expect(c.io.test_out, true.B)
+    poke(c.io.SPI_invert, false.B)
+    poke(c.io.SPI_distort, false.B)
 
+    println("running filter...................")
+    step(kernelSize * kernelSize - 1)
     for(i <- 0 until c.parallelPixels){
       expect(c.io.pixelVal_out(i), image(i))
-      printf("pixel%d: %d\n", i.U, image(i))
+    }
+    for(j <- 1 until imageWidth * imageHeight / c.parallelPixels){
+      step(kernelSize * kernelSize)
+      for(i <- 0 until c.parallelPixels){
+        expect(c.io.pixelVal_out(i), image(c.parallelPixels * j + i))
+      }
     }
   }
 }
