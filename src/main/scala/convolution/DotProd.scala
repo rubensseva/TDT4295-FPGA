@@ -1,4 +1,4 @@
-package Ex0
+package morphinator
 
 import chisel3._
 import chisel3.util.Counter

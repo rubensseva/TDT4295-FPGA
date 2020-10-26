@@ -1,4 +1,4 @@
-package spi
+package morphinator
 
 import chisel3.iotesters
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
