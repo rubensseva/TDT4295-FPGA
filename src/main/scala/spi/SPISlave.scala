@@ -9,7 +9,7 @@ class SPISlave extends Module {
   val io = IO(new Bundle{
     val SPISignals          = Input(new SPISignals)
 
-    val CurrentByte         = Output(UInt(8.W)) // The current byte that is read
+    val currentByte         = Output(UInt(8.W)) // The current byte that is read
     val isCurrentlyReading  = Output(UInt(1.W)) // Are we currently reading something into CurrentByte
   })
 
@@ -22,7 +22,7 @@ class SPISlave extends Module {
   shiftRegister.io.enable := 0.U
   shiftRegister.io.in := 0.U
 
-  io.CurrentByte := shiftRegister.io.out
+  io.currentByte := shiftRegister.io.out
 
   // When slave select is low, use edge detect and shift register modules
   // to read from MOSI at appropriate times, and store result in shift register

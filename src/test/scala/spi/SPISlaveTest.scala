@@ -65,7 +65,7 @@ class SPISlaveSimpleTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
   
   poke(dut.io.SPISignals.SS, 1);
-  expect(dut.io.CurrentByte, 128);
+  expect(dut.io.currentByte, 128);
 }
 
 class SPISlaveValuesTest(dut: SPISlave) extends PeekPokeTester(dut) {
@@ -132,7 +132,7 @@ class SPISlaveValuesTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
   
   poke(dut.io.SPISignals.SS, 1);
-  expect(dut.io.CurrentByte, 83);
+  expect(dut.io.currentByte, 83);
 }
 
 
@@ -199,7 +199,7 @@ class SPISlaveSlowClockTest(dut: SPISlave) extends PeekPokeTester(dut) {
   step(100)
   
   poke(dut.io.SPISignals.SS, 1);
-  expect(dut.io.CurrentByte, 83);
+  expect(dut.io.currentByte, 83);
 }
 
 class SPISlaveFastClockTest(dut: SPISlave) extends PeekPokeTester(dut) {
@@ -265,7 +265,7 @@ class SPISlaveFastClockTest(dut: SPISlave) extends PeekPokeTester(dut) {
   step(2)
   
   poke(dut.io.SPISignals.SS, 1);
-  expect(dut.io.CurrentByte, 83);
+  expect(dut.io.currentByte, 83);
 
 }
 
@@ -328,7 +328,7 @@ class SPISlaveDisabledSimpleTest(dut: SPISlave) extends PeekPokeTester(dut) {
 
   
   poke(dut.io.SPISignals.SS, 1);
-  expect(dut.io.CurrentByte, 0);
+  expect(dut.io.currentByte, 0);
 }
 
 

@@ -13,6 +13,7 @@ class Top extends Module {
   spiSlave.io.SPISignals := io.SPISignals
 
   val spiInterfacer = Module(new SPIInterfacer)
-  spiInterfacer.io.currentByte := spiSlave.io.CurrentByte
+  spiInterfacer.io.currentByte := spiSlave.io.currentByte
   spiInterfacer.io.isCurrentlyReading := spiSlave.io.isCurrentlyReading
+
 }
