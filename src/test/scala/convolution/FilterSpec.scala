@@ -2,8 +2,9 @@ package Ex0
 
 import chisel3._
 import chisel3.iotesters.PeekPokeTester
-import org.scalatest.{Matchers, FlatSpec}
-import TestUtils._
+import chisel3.iotesters
+import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
+import org.scalatest._
 
 class FilterSpec extends FlatSpec with Matchers {
   import FilterTests._
@@ -11,16 +12,10 @@ class FilterSpec extends FlatSpec with Matchers {
   val parallelPixels = 1
 
   behavior of "FilterSpec"
-
-      // modified to generate vcd output
-      // chisel3.iotesters.Driver(() => new KernelConvolution(kernelSize, nModules)) { c =>
-      
   it should "Filter" in {
-    wrapTester(
-      chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "treadle"), () => new Filter(parallelPixels)) { c =>
+    chisel3.iotesters.Driver (() => new Filter(parallelPixels)) { c =>
         new IdentityTest(c)
       } should be(true)
-    )
   }
 }
 
