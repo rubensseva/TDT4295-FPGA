@@ -7,9 +7,7 @@ import chisel3.util._
  */
 class SPISlave extends Module {
   val io = IO(new Bundle{
-    val SCLK                = Input(UInt(1.W))  // SPI clock, should be set by SPI master
-    val MOSI                = Input(UInt(1.W))  // Slave input
-    val SS                  = Input(UInt(1.W))  // Slave Select, only do stuff when this signal is low 
+    val SPISignals          = Input(new SPISignals)
 
     val CurrentByte         = Output(UInt(8.W)) // The current byte that is read
     val isCurrentlyReading  = Output(UInt(1.W)) // Are we currently reading something into CurrentByte
@@ -18,7 +16,7 @@ class SPISlave extends Module {
   io.isCurrentlyReading := 0.U
 
   val edgeDetect = Module(new EdgeDetect(true))
-  edgeDetect.io.din := io.SCLK
+  edgeDetect.io.din := io.SPISignals.SCLK
 
   val shiftRegister = Module(new ShiftRegister(8, true))
   shiftRegister.io.enable := 0.U
@@ -28,11 +26,11 @@ class SPISlave extends Module {
 
   // When slave select is low, use edge detect and shift register modules
   // to read from MOSI at appropriate times, and store result in shift register
-  when (!io.SS) {
+  when (!io.SPISignals.SS) {
     io.isCurrentlyReading := 1.U
     when (edgeDetect.io.edge) {
       shiftRegister.io.enable := 1.U
-      shiftRegister.io.in := io.MOSI
+      shiftRegister.io.in := io.SPISignals.MOSI
     }
   }
 }
