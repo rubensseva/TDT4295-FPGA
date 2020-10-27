@@ -13,18 +13,27 @@ class FilterSpec extends FlatSpec with Matchers {
 
   behavior of "FilterSpec"
   it should "Filter" in {
-    chisel3.iotesters.Driver (() => new Filter(parallelPixels)) { c =>
+    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "treadle"), () => new Filter(parallelPixels)) { c =>
         new IdentityTest(c)
       } should be(true)
   }
 }
 
-// waveform output 
-// trying to produce vcd as per example above
-// replace:
-// chisel3.iotesters.Driver(() => new MatMul(rowDims, colDims)) { c =>
-  // with:
-// chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "treadle"), () => new KernelConvolution(kernelSize)) { c =>
+// normal:
+    // chisel3.iotesters.Driver (() => new Filter(parallelPixels)) { c =>
+// waveform output :
+    // chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "treadle"), () => new Filter(parallelPixels)) { c =>
+// verilog and waveform:
+    // chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "verilator"), () => new Filter(parallelPixels)) { c =>
+    
+// can also run a main function:
+//
+//   object Filter extends App {
+//      chisel3.Driver.execute(args, () => new Filter)
+//   }
+//
+// then in sbt:
+//   run --backend-name verilator
 
 object FilterTests {
 
