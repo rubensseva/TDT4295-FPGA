@@ -80,5 +80,8 @@ class Filter(val parallelPixels: Int) extends Module {
     
     when(kernelCountReset){
         pixelIndex := pixelIndex + parallelPixels.U
+        when(pixelIndex === imageWidth.U * imageHeight.U){
+            pixelIndex := 0.U
+        }
     }
 }

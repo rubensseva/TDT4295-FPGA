@@ -13,7 +13,7 @@ class FilterSpec extends FlatSpec with Matchers {
 
   behavior of "FilterSpec"
   it should "Filter" in {
-    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "treadle"), () => new Filter(parallelPixels)) { c =>
+    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "verilator"), () => new Filter(parallelPixels)) { c =>
         new IdentityTest(c)
       } should be(true)
   }
