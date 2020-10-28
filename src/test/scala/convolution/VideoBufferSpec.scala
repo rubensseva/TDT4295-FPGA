@@ -10,9 +10,9 @@ class VideoBufferSpec extends FlatSpec with Matchers {
   import VideoBufferTests._
 
   val kernelSize = 3
-  val imageWidth = 6
+  val imageWidth = 8
   val imageHeight = 6
-  val parallelPixels = 18
+  val parallelPixels = 8
 
   behavior of "VideoBufferSpec"
   it should "just generate files" in {

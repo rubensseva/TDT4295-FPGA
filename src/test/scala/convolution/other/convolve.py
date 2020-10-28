@@ -1,14 +1,18 @@
 import numpy as np
+import matplotlib.pyplot as plt 
 
 width = 6 
 height = 6 
 kernel_dim = 3
-
+norm = 1
+          # [1, 1, 1],
+          # [1, 1, 1],
+          # [1, 1, 1],
 KERNEL = np.array(
          [
-          [1, 1, 1],
-          [1, 1, 1],
-          [1, 1, 1],
+          [0, -1, 0],
+          [-1, 4, -1],
+          [0, -1, 0],
          ]
         )
 IMAGE  = np.array(
@@ -58,6 +62,10 @@ with open(out_path, 'w') as file:
             image = IMAGE[il:ir, jl:jr]
             kernel = KERNEL[kil:kir, kjl:kjr]
             OUT[i,j] = np.sum(image * kernel)
-    file.write("{}".format(str(OUT//9)))
+    OUT = np.abs(OUT)//4
+    file.write("{}".format(str(OUT//norm)))
     file.write("\n")
 
+print(OUT)
+plt.imshow(OUT)
+plt.show()

@@ -92,12 +92,16 @@ class Filter(val parallelPixels: Int) extends Module {
             kernelConvolution.pixelVal_in(i) := image(y * imageWidth.U + x)
         }
     }
+
     
     for(i <- 0 until parallelPixels){
+        val pixOut = kernelConvolution.pixelVal_out(i) 
         when(colorInvert){
-            io.pixelVal_out(i) := 15.U - (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
+            // io.pixelVal_out(i) := 15.U - (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
+            io.pixelVal_out(i) := 15.U - (pixOut / kernelSums(io.SPI_filterIndex)).asUInt
         }.otherwise{
-            io.pixelVal_out(i) := (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
+            // io.pixelVal_out(i) := (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
+            io.pixelVal_out(i) := (pixOut / kernelSums(io.SPI_filterIndex)).asUInt
         }
     }
     
@@ -109,4 +113,7 @@ class Filter(val parallelPixels: Int) extends Module {
             pixelIndex := 0.U
         }
     }
+    
+    val a = RegInit(SInt(4.W), -1.S)
+    printf("here ------------------- %d\n", (~a).asUInt + 1.U)
 }
