@@ -8,10 +8,10 @@ class KernelConvolution(val kernelSize: Int, val nModules: Int) extends Module {
     val io = IO(
         new Bundle {
             val kernelVal_in  = Input(SInt(5.W))
-            val pixelVal_in   = Input(Vec(nModules, UInt(4.W))) 
+            val pixelVal_in   = Input(Vec(nModules, UInt(4.W)))
             
             
-            val pixelVal_out  = Output(Vec(nModules, UInt(4.W)))
+            val pixelVal_out  = Output(Vec(nModules, SInt(9.W)))
             val valid_out     = Output(Bool())
         }
     )
