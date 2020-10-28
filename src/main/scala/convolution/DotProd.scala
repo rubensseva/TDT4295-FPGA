@@ -7,8 +7,8 @@ class DotProd(val elements: Int) extends Module {
 
   val io = IO(
     new Bundle {
-      val dataInA     = Input(UInt(4.W))
-      val dataInB     = Input(SInt(5.W))
+      val dataInA     = Input(UInt(16.W))
+      val dataInB     = Input(SInt(16.W))
 
       val dataOut     = Output(UInt(4.W))
       val outputValid = Output(Bool())
@@ -16,9 +16,10 @@ class DotProd(val elements: Int) extends Module {
   )
 
   val (countVal, countReset)  = Counter(true.B, elements)
-  val accumulator = RegInit(SInt(8.W), 0.S)
+  val accumulator = RegInit(SInt(16.W), 0.S)
   val product = io.dataInA.asSInt * io.dataInB
   accumulator := accumulator + product
+  printf("VALOUT: %d, %d, %d, %d\n", io.dataInA, io.dataInB, product, accumulator)
   when(accumulator + product < 0.S)  {
     io.dataOut := 0.U 
   } .elsewhen (accumulator + product > 15.S) {
@@ -30,6 +31,8 @@ class DotProd(val elements: Int) extends Module {
   when(countReset) { // here on overflow
     io.outputValid := true.B
     accumulator := 0.S
+
+    printf("VALOUTidghspdolgnfgkln\n")
   } .otherwise {
     io.outputValid := false.B
   }

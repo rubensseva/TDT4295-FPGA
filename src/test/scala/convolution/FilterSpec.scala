@@ -9,7 +9,7 @@ import org.scalatest._
 class FilterSpec extends FlatSpec with Matchers {
   import FilterTests._
 
-  val parallelPixels = 18
+  val parallelPixels = 1
 
   behavior of "FilterSpec"
   it should "Filter" in {
@@ -44,18 +44,18 @@ object FilterTests {
     val imageWidth = 6
     val imageHeight = 6
 
-    //poke(c.io.SPI_filterIndex, 0.U)
+    poke(c.io.SPI_filterIndex, 0.U)
 
-    /*val image: List[UInt] = List( 
-        200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
-        100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
-        50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W),
-        200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
-        100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
-        50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W)
-    )*/
+    val image: List[UInt] = List( 
+        15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W),
+        8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
+        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W),
+        15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W),
+        8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
+        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W)
+    )
 
-    poke(c.io.SPI_filterIndex, 1.U)
+    /*poke(c.io.SPI_filterIndex, 1.U)
 
     val image: List[UInt] = List( 
         50.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 44.U(16.W),
@@ -64,7 +64,18 @@ object FilterTests {
         77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
         77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
         44.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 61.U(16.W)
-    )
+    )*/
+
+    /*poke(c.io.SPI_filterIndex, 2.U)
+
+    val image: List[UInt] = List( 
+        0.U(16.W), 7.U(16.W), 8.U(16.W), 0.U(16.W), 7.U(16.W), 0.U(16.W),
+        0.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        0.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        15.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        77.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 116.U(16.W), 77.U(16.W),
+        0.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 77.U(16.W), 0.U(16.W)
+    )*/
 
     poke(c.io.SPI_invert, false.B)
     poke(c.io.SPI_distort, false.B)

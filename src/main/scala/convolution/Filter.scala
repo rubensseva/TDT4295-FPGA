@@ -29,20 +29,26 @@ class Filter(val parallelPixels: Int) extends Module {
             1.S(5.W), 1.S(5.W), 1.S(5.W),
             1.S(5.W), 1.S(5.W), 1.S(5.W),
             1.S(5.W), 1.S(5.W), 1.S(5.W)
+        ),
+        VecInit(
+            1.S(5.W), 0.S(5.W), -1.S(5.W),
+            0.S(5.W), 0.S(5.W), 0.S(5.W),
+            -1.S(5.W), 0.S(5.W), 1.S(5.W)
         )
     )
     val kernelSums = VecInit(
         RegInit(UInt(8.W), 1.U),
         RegInit(UInt(8.W), 9.U),
+        RegInit(UInt(8.W), 1.U)
     )
   
     val image = VecInit(
-        200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W),
-        100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W),
-        50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W),
-        200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W),
-        100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W),
-        50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W)
+        15.U(4.W), 8.U(4.W), 0.U(4.W), 7.U(4.W), 0.U(4.W), 0.U(4.W),
+        8.U(4.W), 0.U(4.W), 7.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
+        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W),
+        15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W),
+        8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
+        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W)
     )
     
     val kernelSize = 3
@@ -53,6 +59,7 @@ class Filter(val parallelPixels: Int) extends Module {
     
     val (kernelCounter, kernelCountReset)  = Counter(true.B, kernelSize * kernelSize)
     kernelConvolution.kernelVal_in := kernels(io.SPI_filterIndex)(kernelCounter)
+    //printf("Kernelval: %d\n", kernels(io.SPI_filterIndex)(kernelCounter))
     
     val (imageCounterX, imageCounterXReset) = Counter(true.B, kernelSize)
     val (imageCounterY, imageCounterYReset) = Counter(imageCounterXReset, kernelSize)
