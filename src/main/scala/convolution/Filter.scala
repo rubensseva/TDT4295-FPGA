@@ -12,7 +12,7 @@ class Filter(val parallelPixels: Int) extends Module {
             val SPI_invert      = Input(Bool())
             val SPI_distort     = Input(Bool())
             
-            val pixelVal_out    = Output(Vec(parallelPixels, UInt(16.W)))
+            val pixelVal_out    = Output(Vec(parallelPixels, UInt(4.W)))
             val valid_out       = Output(Bool())
         }
     )
@@ -21,28 +21,28 @@ class Filter(val parallelPixels: Int) extends Module {
   
     val kernels = VecInit(
         VecInit(
-            0.U(16.W), 0.U(16.W), 0.U(16.W),
-            0.U(16.W), 1.U(16.W), 0.U(16.W),
-            0.U(16.W), 0.U(16.W), 0.U(16.W)
+            0.S(5.W), 0.S(5.W), 0.S(5.W),
+            0.S(5.W), 1.S(5.W), 0.S(5.W),
+            0.S(5.W), 0.S(5.W), 0.S(5.W)
         ),
         VecInit(
-            1.U(16.W), 1.U(16.W), 1.U(16.W),
-            1.U(16.W), 1.U(16.W), 1.U(16.W),
-            1.U(16.W), 1.U(16.W), 1.U(16.W)
+            1.S(5.W), 1.S(5.W), 1.S(5.W),
+            1.S(5.W), 1.S(5.W), 1.S(5.W),
+            1.S(5.W), 1.S(5.W), 1.S(5.W)
         )
     )
     val kernelSums = VecInit(
-        RegInit(UInt(32.W), 1.U),
-        RegInit(UInt(32.W), 9.U),
+        RegInit(UInt(8.W), 1.U),
+        RegInit(UInt(8.W), 9.U),
     )
   
     val image = VecInit(
-        200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
-        100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
-        50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W),
-        200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W),
-        100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W),
-        50.U(16.W), 200.U(16.W), 100.U(16.W), 50.U(16.W), 200.U(16.W), 100.U(16.W)
+        200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W),
+        100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W),
+        50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W),
+        200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W),
+        100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W),
+        50.U(4.W), 200.U(4.W), 100.U(4.W), 50.U(4.W), 200.U(4.W), 100.U(4.W)
     )
     
     val kernelSize = 3
@@ -70,7 +70,7 @@ class Filter(val parallelPixels: Int) extends Module {
     
     for(i <- 0 until parallelPixels){
         when(colorInvert){
-            io.pixelVal_out(i) := 255.U - kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)
+            io.pixelVal_out(i) := 15.U - kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)
         }.otherwise{
             io.pixelVal_out(i) := kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)
         }
