@@ -16,15 +16,15 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
         }
     )
 
-    //val image = VecInit(List.fill(imageWidth * imageHeight)(0.U(16.W)))
-    val image = VecInit(
+    val image = VecInit(List.fill(imageWidth * imageHeight)(0.U(4.W)))
+    /*val image = VecInit(
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W)
-    )
+    )*/
 
 	io.pixelVal_out := image(io.rowIndex * imageWidth.U + io.colIndex) // Not guaranteed to work, because VGA has a higher clock frequency than the FPGA
 
