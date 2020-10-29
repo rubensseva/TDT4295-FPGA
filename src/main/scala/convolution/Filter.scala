@@ -20,39 +20,57 @@ class Filter(val parallelPixels: Int) extends Module {
     val colorInvert = RegInit(Bool(), false.B)
   
     val kernels = VecInit(
-        VecInit(
+        VecInit( // Identity
             0.S(5.W), 0.S(5.W), 0.S(5.W),
             0.S(5.W), 1.S(5.W), 0.S(5.W),
             0.S(5.W), 0.S(5.W), 0.S(5.W)
         ),
-        VecInit(
+        VecInit( // Box blur
             1.S(5.W), 1.S(5.W), 1.S(5.W),
             1.S(5.W), 1.S(5.W), 1.S(5.W),
             1.S(5.W), 1.S(5.W), 1.S(5.W)
         ),
-        VecInit(
-            1.S(5.W), 0.S(5.W), -1.S(5.W),
-            0.S(5.W), 0.S(5.W), 0.S(5.W),
-            -1.S(5.W), 0.S(5.W), 1.S(5.W)
+        VecInit( // Gaussian blur
+            1.S(5.W), 2.S(5.W), 1.S(5.W),
+            2.S(5.W), 4.S(5.W), 2.S(5.W),
+            1.S(5.W), 2.S(5.W), 1.S(5.W)
+        ),
+        VecInit( // Edge detector
+            0.S(5.W), -1.S(5.W), 0.S(5.W),
+            -1.S(5.W), 4.S(5.W), -1.S(5.W),
+            0.S(5.W), -1.S(5.W), 0.S(5.W)
+        ),
+        VecInit( // Edge detector
+            -1.S(5.W), -1.S(5.W), -1.S(5.W),
+            -1.S(5.W), 8.S(5.W), -1.S(5.W),
+            -1.S(5.W), -1.S(5.W), -1.S(5.W)
+        ),
+        VecInit( // Sharpening
+            0.S(5.W), -1.S(5.W), 0.S(5.W),
+            -1.S(5.W), 5.S(5.W), -1.S(5.W),
+            0.S(5.W), -1.S(5.W), 0.S(5.W)
         )
     )
     val kernelSums = VecInit(
-        RegInit(UInt(8.W), 1.U),
-        RegInit(UInt(8.W), 9.U),
-        RegInit(UInt(8.W), 1.U)
+        RegInit(SInt(8.W), 1.S),
+        RegInit(SInt(8.W), 9.S),
+        RegInit(SInt(8.W), 16.S),
+        RegInit(SInt(8.W), 1.S),
+        RegInit(SInt(8.W), 1.S),
+        RegInit(SInt(8.W), 1.S)
     )
   
     val image = VecInit(
-        15.U(4.W), 8.U(4.W), 0.U(4.W), 7.U(4.W), 0.U(4.W), 0.U(4.W),
-        8.U(4.W), 0.U(4.W), 7.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
-        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W),
-        15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W),
-        8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W),
-        0.U(4.W), 15.U(4.W), 8.U(4.W), 0.U(4.W), 15.U(4.W), 8.U(4.W)
+        0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
+        0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
+        0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
+        0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
+        0.U(4.W), 0.U(4.W), 15.U(4.W), 15.U(4.W), 15.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
+        0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W)
     )
     
     val kernelSize = 3
-    var imageWidth = 6
+    var imageWidth = 8
     var imageHeight = 6
 
     val kernelConvolution = Module(new KernelConvolution(kernelSize, parallelPixels)).io
@@ -77,9 +95,9 @@ class Filter(val parallelPixels: Int) extends Module {
     
     for(i <- 0 until parallelPixels){
         when(colorInvert){
-            io.pixelVal_out(i) := 15.U - kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)
+            io.pixelVal_out(i) := 15.U - (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
         }.otherwise{
-            io.pixelVal_out(i) := kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)
+            io.pixelVal_out(i) := (kernelConvolution.pixelVal_out(i) / kernelSums(io.SPI_filterIndex)).asUInt
         }
     }
     
