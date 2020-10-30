@@ -16,7 +16,8 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
         }
     )
 
-    val image = VecInit(List.fill(imageWidth * imageHeight)(0.U(4.W)))
+    val image = RegInit(VecInit(List.fill(imageWidth * imageHeight)(7.U(4.W))))
+    // val image = VecInit(List.fill(imageWidth * imageHeight)(7.U(4.W))) // TODO init at 0 (test purposes)
     /*val image = VecInit(
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W),
@@ -34,7 +35,7 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
 		for(i <- 0 until parallelPixels){
 			image(pixelIndex + i.U) := io.pixelVal_in(i)
 		}
-		pixelIndex := pixelIndex + parallelPixels.U
+		// pixelIndex := pixelIndex + parallelPixels.U
         when(pixelIndex === imageWidth.U * imageHeight.U){
             pixelIndex := 0.U
         }
