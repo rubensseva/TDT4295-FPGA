@@ -9,9 +9,8 @@ import org.scalatest._
 class VideoBufferSpec extends FlatSpec with Matchers {
   import VideoBufferTests._
 
-  val kernelSize = 3
-  val imageWidth = 8
-  val imageHeight = 6
+  val imageWidth = 16 
+  val imageHeight = 12 
   val parallelPixels = 8
 
   behavior of "VideoBufferSpec"
