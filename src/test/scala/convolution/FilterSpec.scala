@@ -41,8 +41,8 @@ object FilterTests {
 
     val kernelSize = 3
 
-    val imageWidth = 64
-    val imageHeight = 48
+    val imageWidth = 16
+    val imageHeight = 12
 
     /*poke(c.io.SPI_filterIndex, 0.U)
 
