@@ -7,12 +7,12 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
 
     val io = IO(
         new Bundle {
-            val pixelVal_in = Input(Vec(parallelPixels, UInt(16.W)))
+            val pixelVal_in = Input(Vec(parallelPixels, UInt(4.W)))
             val valid_in    = Input(Bool())
 			val rowIndex    = Input(UInt(11.W)) // 11 bits => 2048 adresses (2048 pixels should be enough for an image)
 			val colIndex    = Input(UInt(11.W))
 
-			val pixelVal_out = Output(UInt(16.W))
+			val pixelVal_out = Output(UInt(4.W))
         }
     )
 
