@@ -35,7 +35,7 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
 		for(i <- 0 until parallelPixels){
 			image(pixelIndex + i.U) := io.pixelVal_in(i)
 		}
-		// pixelIndex := pixelIndex + parallelPixels.U
+		pixelIndex := pixelIndex + parallelPixels.U
         when(pixelIndex === imageWidth.U * imageHeight.U){
             pixelIndex := 0.U
         }
