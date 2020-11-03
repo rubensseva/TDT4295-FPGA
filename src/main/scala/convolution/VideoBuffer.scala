@@ -17,18 +17,18 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
     )
 
     val imageR = RegInit(VecInit(List.fill(imageWidth * imageHeight)(15.U(4.W)))) // high init for debug
-    val imageG = RegInit(VecInit(List.fill(imageWidth * imageHeight)(15.U(4.W)))) // high init for debug
-    val imageB = RegInit(VecInit(List.fill(imageWidth * imageHeight)(15.U(4.W)))) // high init for debug
+    val imageG = RegInit(VecInit(List.fill(imageWidth * imageHeight)(0.U(4.W))))
+    val imageB = RegInit(VecInit(List.fill(imageWidth * imageHeight)(0.U(4.W))))
     val image = List(imageR, imageG, imageB)
 
 	val pixelIndex = RegInit(UInt(32.W), 0.U)
 
-    for (j <- 0 until 3) {
-	  io.pixelVal_out(j) := image(j)(io.rowIndex * imageWidth.U + io.colIndex)
+    for (k <- 0 until 3) {
+	  io.pixelVal_out(k) := image(k)(io.rowIndex * imageWidth.U + io.colIndex)
 
       when(io.valid_in){
           for(i <- 0 until parallelPixels){
-              image(j)(pixelIndex + i.U) := io.pixelVal_in(j)(i)
+              image(k)(pixelIndex + i.U) := io.pixelVal_in(k)(i)
           }
       }
     }
@@ -36,4 +36,13 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
     when(pixelIndex === imageWidth.U * imageHeight.U){
         pixelIndex := 0.U
     }
+}
+
+
+// main object for compilation 
+object VideoBufferDriver extends App {
+  val imageWidth = 16 
+  val imageHeight = 12 
+  val parallelPixels = 8
+  chisel3.Driver.execute(args, () => new VideoBuffer(imageWidth, imageHeight, parallelPixels))
 }

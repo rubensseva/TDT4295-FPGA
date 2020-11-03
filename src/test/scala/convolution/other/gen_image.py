@@ -5,14 +5,14 @@ r = [15, 0, 0, 15]
 g = [0, 15, 0, 15]
 b = [0, 0, 15, 15]
 templates = [r, g, b]
-out_paths = ["r.txt", "g.txt", "b.txt"]
+colours = ["R", "G", "B"]
 k=0
 for template in templates:
-    out_path = out_paths[k] 
+    out_path = colours[k] + ".txt"
     with open(out_path, 'w') as file:
         index = 0
         file.write(" "*4)
-        file.write("val image = VecInit(\n")
+        file.write("val image{} = VecInit(\n".format(colours[k]))
         for i in range(height):
             file.write(" "*8)
             for j in range(width):

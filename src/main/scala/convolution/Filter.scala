@@ -62,14 +62,6 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
         RegInit(SInt(8.W), 1.S)
     )
   
-
-    // val image = RegInit(VecInit(Seq.fill(64 * 48)(0.U(4.W))))
-    // val imageData : List[Int] = List(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 4, 4, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 4, 4, 4, 4, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-
-    // for(i <- 0 until imageWidth * imageHeight){
-    //     image(i) := imageData(i).U
-    // }
-
     // poggers
     // val image = VecInit(
     //   0.U(4.W),0.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),4.U(4.W),1.U(4.W),0.U(4.W),0.U(4.W),
@@ -209,4 +201,13 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
             pixelIndex := 0.U
         }
     }
+}
+
+// main object for compilation 
+object FilterDriver extends App {
+  val imageWidth = 16 
+  val imageHeight = 12 
+  val parallelPixels = 8
+  val kernelSize = 3
+  chisel3.Driver.execute(args, () => new Filter(imageWidth, imageHeight, parallelPixels, kernelSize))
 }
