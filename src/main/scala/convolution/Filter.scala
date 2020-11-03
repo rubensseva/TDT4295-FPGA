@@ -109,8 +109,8 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
     val pixelIndex = RegInit(UInt(32.W), 0.U)
 
     for (i <- 0 until parallelPixels){
-        val x = (pixelIndex + i.U) / imageWidth.U + imageCounterX - 1.U
-        val y = (pixelIndex + i.U) % imageWidth.U + imageCounterY - 1.U
+        val x = (pixelIndex + i.U) % imageWidth.U + imageCounterX - 1.U
+        val y = (pixelIndex + i.U) / imageWidth.U + imageCounterY - 1.U
         when(x < 0.U || x >= imageWidth.U || y < 0.U || y >= imageHeight.U){
             kernelConvolution.pixelVal_in(i) := 0.U
         }.otherwise{
