@@ -12,10 +12,12 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
             val SPI_invert      = Input(Bool())
             val SPI_distort     = Input(Bool())
             
-            val pixelVal_out    = Output(Vec(parallelPixels, UInt(4.W)))
+            val pixelVal_out    = Output(Vec(3, Vec(parallelPixels, UInt(4.W))))
             val valid_out       = Output(Bool())
         }
     )
+
+    val greyScale = io.SPI_distort //TODO make names consistant
 
     val colorInvert = RegInit(Bool(), false.B)
   
@@ -83,63 +85,123 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
     //   0.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),0.U(4.W),
     //   0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),0.U(4.W),0.U(4.W),
     // )
-    val image = VecInit(
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //
+    // squares
+    // val image = VecInit(
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    //     8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    // )
+    //
+    val imageB = VecInit(
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    )
+    val imageG = VecInit(
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    )
+    val imageR = VecInit(
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
     )
 
-    val kernelConvolution = Module(new KernelConvolution(kernelSize, parallelPixels)).io
-    
-    val (kernelCounter, kernelCountReset)  = Counter(true.B, kernelSize * kernelSize)
-    kernelConvolution.kernelVal_in := kernels(io.SPI_filterIndex)(kernelCounter)
-    //printf("Kernelval: %d\n", kernels(io.SPI_filterIndex)(kernelCounter))
-    
-    val (imageCounterX, imageCounterXReset) = Counter(true.B, kernelSize)
-    val (imageCounterY, imageCounterYReset) = Counter(imageCounterXReset, kernelSize)
-    val pixelIndex = RegInit(UInt(32.W), 0.U)
+    val image = List(imageR, imageB, imageG)
 
-    for (i <- 0 until parallelPixels){
-        val x = (pixelIndex + i.U) % imageWidth.U + imageCounterX - 1.U
-        val y = (pixelIndex + i.U) / imageWidth.U + imageCounterY - 1.U
-        when(x < 0.U || x >= imageWidth.U || y < 0.U || y >= imageHeight.U){
-            kernelConvolution.pixelVal_in(i) := 0.U
-        }.otherwise{
-            kernelConvolution.pixelVal_in(i) := image(y * imageWidth.U + x)
-        }
+    val kernelConvolutionR = Module(new KernelConvolution(kernelSize, parallelPixels)).io
+    val kernelConvolutionG = Module(new KernelConvolution(kernelSize, parallelPixels)).io
+    val kernelConvolutionB = Module(new KernelConvolution(kernelSize, parallelPixels)).io
+    val kernelConvolution  = List(kernelConvolutionR, kernelConvolutionG, kernelConvolutionB)
+    
+    val (kernelCounter, kernelCountReset) = Counter(true.B, kernelSize * kernelSize)
+
+    for (j <- 0 until 3) {
+      kernelConvolution(j).kernelVal_in := kernels(io.SPI_filterIndex)(kernelCounter)
     }
+    
+      val (imageCounterX, imageCounterXReset) = Counter(true.B, kernelSize)
+      val (imageCounterY, imageCounterYReset) = Counter(imageCounterXReset, kernelSize)
+      val pixelIndex = RegInit(UInt(32.W), 0.U)
 
-    for(i <- 0 until parallelPixels){
+      for (i <- 0 until parallelPixels){
+          val x = (pixelIndex + i.U) % imageWidth.U + imageCounterX - 1.U
+          val y = (pixelIndex + i.U) / imageWidth.U + imageCounterY - 1.U
+
+          for (j <- 0 until 3) {
+            when(x < 0.U || x >= imageWidth.U || y < 0.U || y >= imageHeight.U){
+                kernelConvolution(j).pixelVal_in(i) := 0.U
+            }.elsewhen(greyScale) {
+              kernelConvolution(j).pixelVal_in(i) := (image(0)(y * imageWidth.U + x) * 20.U + image(1)(y * imageWidth.U + x) * 70.U + image(2)(y * imageWidth.U + x) * 10.U) / 100.U
+            } .otherwise {
+              kernelConvolution(j).pixelVal_in(i) := image(j)(y * imageWidth.U + x)
+            }
+          }
+      }
+
       val normVal = kernelSums(io.SPI_filterIndex)
-      val pixOutRaw = kernelConvolution.pixelVal_out(i)
-      var pixOut = 0.U 
 
-      when (pixOutRaw < 0.S) {  // normalize (clip hi/lo and scale rest)
-        // val pixOut = (~pixOutRaw + 1.S).asUInt // abs
-        pixOut = 0.U 
-      } .elsewhen(pixOutRaw > 15.S) {
-        pixOut = 15.U 
-      } .otherwise {
-        pixOut = (pixOutRaw / normVal).asUInt
-      }
+      for (j <- 0 until 3) {
+        for(i <- 0 until parallelPixels){
+          var pixOutRaw = kernelConvolution(j).pixelVal_out(i)
+          var pixOut = 0.U 
 
-      when(colorInvert){
-        io.pixelVal_out(i) := 15.U - pixOut 
-      }.otherwise{
-        io.pixelVal_out(i) := pixOut 
+          when (pixOutRaw < 0.S) {  // normalize (clip hi/lo and scale rest)
+            // val pixOut = (~pixOutRaw + 1.S).asUInt // abs
+            pixOut = 0.U
+          } .elsewhen(pixOutRaw > 15.S) {
+            pixOut = 15.U 
+          } .otherwise {
+            pixOut = (pixOutRaw / normVal).asUInt
+          }
+
+          when(colorInvert){
+            io.pixelVal_out(j)(i) := 15.U - pixOut
+          } .otherwise {
+            io.pixelVal_out(j)(i) := pixOut
+          }
+        }
       }
-    }
-    
-    io.valid_out := kernelConvolution.valid_out 
+      
+    io.valid_out := kernelConvolution(0).valid_out 
     
     when(kernelCountReset){
         pixelIndex := pixelIndex + parallelPixels.U
