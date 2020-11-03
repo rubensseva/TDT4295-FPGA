@@ -9,11 +9,16 @@ import org.scalatest._
 class FilterSpec extends FlatSpec with Matchers {
   import FilterTests._
 
+  // val imageWidth = 6   // for test below
+  // val imageHeight = 6  // for test below
+  val imageWidth = 16 
+  val imageHeight = 12 
   val parallelPixels = 8
+  val kernelSize = 3
 
   behavior of "FilterSpec"
   it should "Filter" in {
-    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "verilator"), () => new Filter(parallelPixels)) { c =>
+    chisel3.iotesters.Driver.execute(Array("--generate-vcd-output", "on", "--backend-name", "verilator"), () => new Filter(imageWidth, imageHeight, parallelPixels, kernelSize)) { c =>
         new IdentityTest(c)
       } should be(true)
   }
@@ -38,11 +43,6 @@ class FilterSpec extends FlatSpec with Matchers {
 object FilterTests {
 
   class IdentityTest(c: Filter) extends PeekPokeTester(c) {
-
-    val kernelSize = 3
-
-    val imageWidth = 16
-    val imageHeight = 12
 
     /*poke(c.io.SPI_filterIndex, 0.U)
 
@@ -81,12 +81,12 @@ object FilterTests {
     poke(c.io.SPI_distort, false.B)
 
     /*println("running filter...................")
-    step(kernelSize * kernelSize - 1)
+    step(c.kernelSize * c.kernelSize - 1)
     for(i <- 0 until c.parallelPixels){
       expect(c.io.pixelVal_out(i), image(i))
     }
-    for(j <- 1 until imageWidth * imageHeight / c.parallelPixels){
-      step(kernelSize * kernelSize)
+    for(j <- 1 until c.imageWidth * c.imageHeight / c.parallelPixels){
+      step(c.kernelSize * c.kernelSize)
       for(i <- 0 until c.parallelPixels){
         expect(c.io.pixelVal_out(i), image(c.parallelPixels * j + i))
       }

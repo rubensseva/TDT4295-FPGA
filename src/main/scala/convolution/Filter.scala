@@ -3,7 +3,7 @@ package morphinator
 import chisel3._
 import chisel3.util._
 
-class Filter(val parallelPixels: Int) extends Module {
+class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int, val kernelSize: Int) extends Module {
 
     val io = IO(
         new Bundle {
@@ -17,10 +17,6 @@ class Filter(val parallelPixels: Int) extends Module {
         }
     )
 
-    val kernelSize = 3
-    var imageWidth = 16
-    var imageHeight = 12
-    
     val colorInvert = RegInit(Bool(), false.B)
   
     val kernels = VecInit(
@@ -65,23 +61,42 @@ class Filter(val parallelPixels: Int) extends Module {
     )
   
 
-    val image = RegInit(VecInit(Seq.fill(imageWidth * imageHeight)(0.U(4.W))))
-    val imageData : List[Int] = List(0, 0, 5, 6, 5, 6, 5, 5, 6, 5, 5, 5, 4, 1, 0, 0,
-        0, 5, 6, 6, 6, 7, 10, 11, 9, 6, 6, 10, 13, 12, 10, 1,
-        4, 6, 6, 7, 11, 14, 15, 12, 7, 8, 12, 15, 15, 6, 8, 11,
-        5, 6, 6, 8, 12, 15, 15, 12, 5, 8, 11, 13, 14, 11, 9, 12,
-        4, 6, 6, 6, 6, 8, 11, 13, 11, 10, 6, 6, 5, 7, 4, 4,
-        4, 6, 6, 6, 6, 6, 6, 5, 5, 5, 6, 6, 6, 7, 6, 4,
-        4, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 3,
-        5, 6, 6, 6, 6, 6, 4, 3, 4, 4, 5, 5, 5, 6, 6, 0,
-        4, 5, 6, 6, 6, 6, 5, 4, 4, 5, 5, 5, 6, 6, 5, 0,
-        0, 5, 5, 6, 6, 6, 6, 5, 5, 5, 6, 6, 6, 5, 5, 0,
-        0, 4, 4, 5, 6, 6, 6, 6, 6, 5, 6, 6, 6, 6, 5, 0,
-        0, 0, 0, 4, 4, 5, 6, 5, 6, 6, 5, 5, 5, 5, 0, 0)
+    // val image = RegInit(VecInit(Seq.fill(64 * 48)(0.U(4.W))))
+    // val imageData : List[Int] = List(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 4, 4, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 4, 4, 4, 4, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
-    for(i <- 0 until imageWidth * imageHeight){
-        image(i) := imageData(i).U
-    }
+    // for(i <- 0 until imageWidth * imageHeight){
+    //     image(i) := imageData(i).U
+    // }
+
+    // poggers
+    // val image = VecInit(
+    //   0.U(4.W),0.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),4.U(4.W),1.U(4.W),0.U(4.W),0.U(4.W),
+    //   0.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),7.U(4.W),10.U(4.W),11.U(4.W),9.U(4.W),6.U(4.W),6.U(4.W),10.U(4.W),13.U(4.W),12.U(4.W),10.U(4.W),1.U(4.W),
+    //   4.U(4.W),6.U(4.W),6.U(4.W),7.U(4.W),11.U(4.W),14.U(4.W),15.U(4.W),12.U(4.W),7.U(4.W),8.U(4.W),12.U(4.W),15.U(4.W),15.U(4.W),6.U(4.W),8.U(4.W),11.U(4.W),
+    //   5.U(4.W),6.U(4.W),6.U(4.W),8.U(4.W),12.U(4.W),15.U(4.W),15.U(4.W),12.U(4.W),5.U(4.W),8.U(4.W),11.U(4.W),13.U(4.W),14.U(4.W),11.U(4.W),9.U(4.W),12.U(4.W),
+    //   4.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),8.U(4.W),11.U(4.W),13.U(4.W),11.U(4.W),10.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),7.U(4.W),4.U(4.W),4.U(4.W),
+    //   4.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),7.U(4.W),6.U(4.W),4.U(4.W),
+    //   4.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),3.U(4.W),
+    //   5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),4.U(4.W),3.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),0.U(4.W),
+    //   4.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),0.U(4.W),
+    //   0.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),0.U(4.W),
+    //   0.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),0.U(4.W),
+    //   0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),5.U(4.W),6.U(4.W),5.U(4.W),6.U(4.W),6.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),5.U(4.W),0.U(4.W),0.U(4.W),
+    // )
+    val image = VecInit(
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),4.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+        8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),8.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
+    )
 
     val kernelConvolution = Module(new KernelConvolution(kernelSize, parallelPixels)).io
     
@@ -94,8 +109,8 @@ class Filter(val parallelPixels: Int) extends Module {
     val pixelIndex = RegInit(UInt(32.W), 0.U)
 
     for (i <- 0 until parallelPixels){
-        val x = (pixelIndex + i.U) / imageWidth.U + imageCounterX - 1.U
-        val y = (pixelIndex + i.U) % imageWidth.U + imageCounterY - 1.U
+        val x = (pixelIndex + i.U) % imageWidth.U + imageCounterX - 1.U
+        val y = (pixelIndex + i.U) / imageWidth.U + imageCounterY - 1.U
         when(x < 0.U || x >= imageWidth.U || y < 0.U || y >= imageHeight.U){
             kernelConvolution.pixelVal_in(i) := 0.U
         }.otherwise{
@@ -104,21 +119,24 @@ class Filter(val parallelPixels: Int) extends Module {
     }
 
     for(i <- 0 until parallelPixels){
-        val normVal = kernelSums(io.SPI_filterIndex)
-        val pixOutRaw = kernelConvolution.pixelVal_out(i)
-        /*when (pixOutRaw < 0.S) {  // normalize (clip hi/lo and scale rest)
-          // val pixOut = (~pixOutRaw + 1.S).asUInt // abs
-          val pixOut = 0.U 
-        } .elsewhen(pixOutRaw > 15.S) {
-          val pixOut = 15.U 
-        } .otherwise {
-          val pixOut = 
-        }*/
-        when(colorInvert){
-            io.pixelVal_out(i) := 15.U - (pixOutRaw / normVal).asUInt 
-        }.otherwise{
-            io.pixelVal_out(i) := (pixOutRaw / normVal).asUInt
-        }
+      val normVal = kernelSums(io.SPI_filterIndex)
+      val pixOutRaw = kernelConvolution.pixelVal_out(i)
+      var pixOut = 0.U 
+
+      when (pixOutRaw < 0.S) {  // normalize (clip hi/lo and scale rest)
+        // val pixOut = (~pixOutRaw + 1.S).asUInt // abs
+        pixOut = 0.U 
+      } .elsewhen(pixOutRaw > 15.S) {
+        pixOut = 15.U 
+      } .otherwise {
+        pixOut = (pixOutRaw / normVal).asUInt
+      }
+
+      when(colorInvert){
+        io.pixelVal_out(i) := 15.U - pixOut 
+      }.otherwise{
+        io.pixelVal_out(i) := pixOut 
+      }
     }
     
     io.valid_out := kernelConvolution.valid_out 
