@@ -293,6 +293,31 @@ module Filter(
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_9;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
+  reg [31:0] _RAND_18;
+  reg [31:0] _RAND_19;
+  reg [31:0] _RAND_20;
+  reg [31:0] _RAND_21;
+  reg [31:0] _RAND_22;
+  reg [31:0] _RAND_23;
+  reg [31:0] _RAND_24;
+  reg [31:0] _RAND_25;
+  reg [31:0] _RAND_26;
+  reg [31:0] _RAND_27;
+  reg [31:0] _RAND_28;
 `endif // RANDOMIZE_REG_INIT
   wire  KernelConvolution_clock; // @[Filter.scala 142:36]
   wire  KernelConvolution_reset; // @[Filter.scala 142:36]
@@ -4382,160 +4407,161 @@ module Filter(
   wire [10:0] _GEN_9240 = _T_533 ? 11'h0 : _GEN_9239; // @[Filter.scala 163:80]
   wire [10:0] _GEN_9433 = io_SPI_distort ? _T_526 : {{7'd0}, _GEN_8852}; // @[Filter.scala 165:35]
   wire [10:0] _GEN_9434 = _T_533 ? 11'h0 : _GEN_9433; // @[Filter.scala 163:80]
-  wire [7:0] _GEN_9436 = 3'h1 == io_SPI_filterIndex[2:0] ? $signed(8'sh9) : $signed(8'sh1); // @[Filter.scala 177:61]
-  wire [7:0] _GEN_9437 = 3'h2 == io_SPI_filterIndex[2:0] ? $signed(8'sh10) : $signed(_GEN_9436); // @[Filter.scala 177:61]
-  wire [7:0] _GEN_9438 = 3'h3 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9437); // @[Filter.scala 177:61]
-  wire [7:0] _GEN_9439 = 3'h4 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9438); // @[Filter.scala 177:61]
-  wire [7:0] _GEN_9440 = 3'h5 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9439); // @[Filter.scala 177:61]
-  wire [8:0] _GEN_9959 = {{1{_GEN_9440[7]}},_GEN_9440}; // @[Filter.scala 177:61]
-  wire [9:0] _T_561 = $signed(KernelConvolution_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_562 = $signed(_T_561) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_565 = $signed(_T_561) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_568 = $signed(KernelConvolution_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9442 = _T_565 ? 10'hf : _T_568; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9444 = _T_562 ? 10'h0 : _GEN_9442; // @[Filter.scala 181:37]
-  wire [9:0] _T_572 = $signed(KernelConvolution_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_573 = $signed(_T_572) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_576 = $signed(_T_572) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_579 = $signed(KernelConvolution_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9447 = _T_576 ? 10'hf : _T_579; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9449 = _T_573 ? 10'h0 : _GEN_9447; // @[Filter.scala 181:37]
-  wire [9:0] _T_583 = $signed(KernelConvolution_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_584 = $signed(_T_583) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_587 = $signed(_T_583) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_590 = $signed(KernelConvolution_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9452 = _T_587 ? 10'hf : _T_590; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9454 = _T_584 ? 10'h0 : _GEN_9452; // @[Filter.scala 181:37]
-  wire [9:0] _T_594 = $signed(KernelConvolution_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_595 = $signed(_T_594) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_598 = $signed(_T_594) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_601 = $signed(KernelConvolution_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9457 = _T_598 ? 10'hf : _T_601; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9459 = _T_595 ? 10'h0 : _GEN_9457; // @[Filter.scala 181:37]
-  wire [9:0] _T_605 = $signed(KernelConvolution_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_606 = $signed(_T_605) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_609 = $signed(_T_605) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_612 = $signed(KernelConvolution_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9462 = _T_609 ? 10'hf : _T_612; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9464 = _T_606 ? 10'h0 : _GEN_9462; // @[Filter.scala 181:37]
-  wire [9:0] _T_616 = $signed(KernelConvolution_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_617 = $signed(_T_616) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_620 = $signed(_T_616) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_623 = $signed(KernelConvolution_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9467 = _T_620 ? 10'hf : _T_623; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9469 = _T_617 ? 10'h0 : _GEN_9467; // @[Filter.scala 181:37]
-  wire [9:0] _T_627 = $signed(KernelConvolution_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_628 = $signed(_T_627) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_631 = $signed(_T_627) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_634 = $signed(KernelConvolution_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9472 = _T_631 ? 10'hf : _T_634; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9474 = _T_628 ? 10'h0 : _GEN_9472; // @[Filter.scala 181:37]
-  wire [9:0] _T_638 = $signed(KernelConvolution_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_639 = $signed(_T_638) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_642 = $signed(_T_638) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_645 = $signed(KernelConvolution_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9477 = _T_642 ? 10'hf : _T_645; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9479 = _T_639 ? 10'h0 : _GEN_9477; // @[Filter.scala 181:37]
-  wire [9:0] _T_649 = $signed(KernelConvolution_1_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_650 = $signed(_T_649) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_653 = $signed(_T_649) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_656 = $signed(KernelConvolution_1_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9482 = _T_653 ? 10'hf : _T_656; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9484 = _T_650 ? 10'h0 : _GEN_9482; // @[Filter.scala 181:37]
-  wire [9:0] _T_660 = $signed(KernelConvolution_1_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_661 = $signed(_T_660) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_664 = $signed(_T_660) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_667 = $signed(KernelConvolution_1_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9487 = _T_664 ? 10'hf : _T_667; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9489 = _T_661 ? 10'h0 : _GEN_9487; // @[Filter.scala 181:37]
-  wire [9:0] _T_671 = $signed(KernelConvolution_1_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_672 = $signed(_T_671) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_675 = $signed(_T_671) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_678 = $signed(KernelConvolution_1_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9492 = _T_675 ? 10'hf : _T_678; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9494 = _T_672 ? 10'h0 : _GEN_9492; // @[Filter.scala 181:37]
-  wire [9:0] _T_682 = $signed(KernelConvolution_1_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_683 = $signed(_T_682) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_686 = $signed(_T_682) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_689 = $signed(KernelConvolution_1_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9497 = _T_686 ? 10'hf : _T_689; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9499 = _T_683 ? 10'h0 : _GEN_9497; // @[Filter.scala 181:37]
-  wire [9:0] _T_693 = $signed(KernelConvolution_1_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_694 = $signed(_T_693) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_697 = $signed(_T_693) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_700 = $signed(KernelConvolution_1_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9502 = _T_697 ? 10'hf : _T_700; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9504 = _T_694 ? 10'h0 : _GEN_9502; // @[Filter.scala 181:37]
-  wire [9:0] _T_704 = $signed(KernelConvolution_1_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_705 = $signed(_T_704) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_708 = $signed(_T_704) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_711 = $signed(KernelConvolution_1_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9507 = _T_708 ? 10'hf : _T_711; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9509 = _T_705 ? 10'h0 : _GEN_9507; // @[Filter.scala 181:37]
-  wire [9:0] _T_715 = $signed(KernelConvolution_1_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_716 = $signed(_T_715) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_719 = $signed(_T_715) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_722 = $signed(KernelConvolution_1_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9512 = _T_719 ? 10'hf : _T_722; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9514 = _T_716 ? 10'h0 : _GEN_9512; // @[Filter.scala 181:37]
-  wire [9:0] _T_726 = $signed(KernelConvolution_1_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_727 = $signed(_T_726) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_730 = $signed(_T_726) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_733 = $signed(KernelConvolution_1_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9517 = _T_730 ? 10'hf : _T_733; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9519 = _T_727 ? 10'h0 : _GEN_9517; // @[Filter.scala 181:37]
-  wire [9:0] _T_737 = $signed(KernelConvolution_2_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_738 = $signed(_T_737) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_741 = $signed(_T_737) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_744 = $signed(KernelConvolution_2_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9522 = _T_741 ? 10'hf : _T_744; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9524 = _T_738 ? 10'h0 : _GEN_9522; // @[Filter.scala 181:37]
-  wire [9:0] _T_748 = $signed(KernelConvolution_2_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_749 = $signed(_T_748) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_752 = $signed(_T_748) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_755 = $signed(KernelConvolution_2_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9527 = _T_752 ? 10'hf : _T_755; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9529 = _T_749 ? 10'h0 : _GEN_9527; // @[Filter.scala 181:37]
-  wire [9:0] _T_759 = $signed(KernelConvolution_2_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_760 = $signed(_T_759) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_763 = $signed(_T_759) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_766 = $signed(KernelConvolution_2_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9532 = _T_763 ? 10'hf : _T_766; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9534 = _T_760 ? 10'h0 : _GEN_9532; // @[Filter.scala 181:37]
-  wire [9:0] _T_770 = $signed(KernelConvolution_2_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_771 = $signed(_T_770) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_774 = $signed(_T_770) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_777 = $signed(KernelConvolution_2_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9537 = _T_774 ? 10'hf : _T_777; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9539 = _T_771 ? 10'h0 : _GEN_9537; // @[Filter.scala 181:37]
-  wire [9:0] _T_781 = $signed(KernelConvolution_2_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_782 = $signed(_T_781) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_785 = $signed(_T_781) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_788 = $signed(KernelConvolution_2_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9542 = _T_785 ? 10'hf : _T_788; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9544 = _T_782 ? 10'h0 : _GEN_9542; // @[Filter.scala 181:37]
-  wire [9:0] _T_792 = $signed(KernelConvolution_2_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_793 = $signed(_T_792) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_796 = $signed(_T_792) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_799 = $signed(KernelConvolution_2_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9547 = _T_796 ? 10'hf : _T_799; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9549 = _T_793 ? 10'h0 : _GEN_9547; // @[Filter.scala 181:37]
-  wire [9:0] _T_803 = $signed(KernelConvolution_2_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_804 = $signed(_T_803) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_807 = $signed(_T_803) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_810 = $signed(KernelConvolution_2_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9552 = _T_807 ? 10'hf : _T_810; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9554 = _T_804 ? 10'h0 : _GEN_9552; // @[Filter.scala 181:37]
-  wire [9:0] _T_814 = $signed(KernelConvolution_2_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 177:61]
-  wire  _T_815 = $signed(_T_814) < 10'sh0; // @[Filter.scala 179:24]
-  wire  _T_818 = $signed(_T_814) > 10'shf; // @[Filter.scala 184:30]
-  wire [9:0] _T_821 = $signed(KernelConvolution_2_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 189:52]
-  wire [9:0] _GEN_9557 = _T_818 ? 10'hf : _T_821; // @[Filter.scala 186:38]
-  wire [9:0] _GEN_9559 = _T_815 ? 10'h0 : _GEN_9557; // @[Filter.scala 181:37]
-  wire [31:0] _T_826 = pixelIndex + 32'h8; // @[Filter.scala 199:34]
-  wire [8:0] _T_827 = 5'h10 * 5'hc; // @[Filter.scala 200:42]
-  wire [31:0] _GEN_9983 = {{23'd0}, _T_827}; // @[Filter.scala 200:25]
-  wire  _T_828 = pixelIndex == _GEN_9983; // @[Filter.scala 200:25]
+  reg [8:0] pixOut_0_0; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_1; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_2; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_3; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_4; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_5; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_6; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_0_7; // @[Filter.scala 174:32]
+  reg [8:0] pixOut_1_0; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_1; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_2; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_3; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_4; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_5; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_6; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_1_7; // @[Filter.scala 174:87]
+  reg [8:0] pixOut_2_0; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_1; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_2; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_3; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_4; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_5; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_6; // @[Filter.scala 174:142]
+  reg [8:0] pixOut_2_7; // @[Filter.scala 174:142]
+  reg  validOut; // @[Filter.scala 175:29]
+  wire [7:0] _GEN_9436 = 3'h1 == io_SPI_filterIndex[2:0] ? $signed(8'sh9) : $signed(8'sh1); // @[Filter.scala 179:64]
+  wire [7:0] _GEN_9437 = 3'h2 == io_SPI_filterIndex[2:0] ? $signed(8'sh10) : $signed(_GEN_9436); // @[Filter.scala 179:64]
+  wire [7:0] _GEN_9438 = 3'h3 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9437); // @[Filter.scala 179:64]
+  wire [7:0] _GEN_9439 = 3'h4 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9438); // @[Filter.scala 179:64]
+  wire [7:0] _GEN_9440 = 3'h5 == io_SPI_filterIndex[2:0] ? $signed(8'sh1) : $signed(_GEN_9439); // @[Filter.scala 179:64]
+  wire [8:0] _GEN_9959 = {{1{_GEN_9440[7]}},_GEN_9440}; // @[Filter.scala 179:64]
+  wire [9:0] _T_564 = $signed(KernelConvolution_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_565 = $signed(pixOut_0_0) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_568 = $signed(pixOut_0_0) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9442 = _T_568 ? 9'hf : pixOut_0_0; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9444 = _T_565 ? 9'h0 : _GEN_9442; // @[Filter.scala 183:43]
+  wire [9:0] _T_575 = $signed(KernelConvolution_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_576 = $signed(pixOut_0_1) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_579 = $signed(pixOut_0_1) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9447 = _T_579 ? 9'hf : pixOut_0_1; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9449 = _T_576 ? 9'h0 : _GEN_9447; // @[Filter.scala 183:43]
+  wire [9:0] _T_586 = $signed(KernelConvolution_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_587 = $signed(pixOut_0_2) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_590 = $signed(pixOut_0_2) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9452 = _T_590 ? 9'hf : pixOut_0_2; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9454 = _T_587 ? 9'h0 : _GEN_9452; // @[Filter.scala 183:43]
+  wire [9:0] _T_597 = $signed(KernelConvolution_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_598 = $signed(pixOut_0_3) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_601 = $signed(pixOut_0_3) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9457 = _T_601 ? 9'hf : pixOut_0_3; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9459 = _T_598 ? 9'h0 : _GEN_9457; // @[Filter.scala 183:43]
+  wire [9:0] _T_608 = $signed(KernelConvolution_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_609 = $signed(pixOut_0_4) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_612 = $signed(pixOut_0_4) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9462 = _T_612 ? 9'hf : pixOut_0_4; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9464 = _T_609 ? 9'h0 : _GEN_9462; // @[Filter.scala 183:43]
+  wire [9:0] _T_619 = $signed(KernelConvolution_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_620 = $signed(pixOut_0_5) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_623 = $signed(pixOut_0_5) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9467 = _T_623 ? 9'hf : pixOut_0_5; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9469 = _T_620 ? 9'h0 : _GEN_9467; // @[Filter.scala 183:43]
+  wire [9:0] _T_630 = $signed(KernelConvolution_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_631 = $signed(pixOut_0_6) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_634 = $signed(pixOut_0_6) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9472 = _T_634 ? 9'hf : pixOut_0_6; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9474 = _T_631 ? 9'h0 : _GEN_9472; // @[Filter.scala 183:43]
+  wire [9:0] _T_641 = $signed(KernelConvolution_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_642 = $signed(pixOut_0_7) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_645 = $signed(pixOut_0_7) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9477 = _T_645 ? 9'hf : pixOut_0_7; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9479 = _T_642 ? 9'h0 : _GEN_9477; // @[Filter.scala 183:43]
+  wire [9:0] _T_652 = $signed(KernelConvolution_1_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_653 = $signed(pixOut_1_0) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_656 = $signed(pixOut_1_0) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9482 = _T_656 ? 9'hf : pixOut_1_0; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9484 = _T_653 ? 9'h0 : _GEN_9482; // @[Filter.scala 183:43]
+  wire [9:0] _T_663 = $signed(KernelConvolution_1_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_664 = $signed(pixOut_1_1) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_667 = $signed(pixOut_1_1) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9487 = _T_667 ? 9'hf : pixOut_1_1; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9489 = _T_664 ? 9'h0 : _GEN_9487; // @[Filter.scala 183:43]
+  wire [9:0] _T_674 = $signed(KernelConvolution_1_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_675 = $signed(pixOut_1_2) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_678 = $signed(pixOut_1_2) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9492 = _T_678 ? 9'hf : pixOut_1_2; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9494 = _T_675 ? 9'h0 : _GEN_9492; // @[Filter.scala 183:43]
+  wire [9:0] _T_685 = $signed(KernelConvolution_1_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_686 = $signed(pixOut_1_3) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_689 = $signed(pixOut_1_3) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9497 = _T_689 ? 9'hf : pixOut_1_3; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9499 = _T_686 ? 9'h0 : _GEN_9497; // @[Filter.scala 183:43]
+  wire [9:0] _T_696 = $signed(KernelConvolution_1_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_697 = $signed(pixOut_1_4) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_700 = $signed(pixOut_1_4) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9502 = _T_700 ? 9'hf : pixOut_1_4; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9504 = _T_697 ? 9'h0 : _GEN_9502; // @[Filter.scala 183:43]
+  wire [9:0] _T_707 = $signed(KernelConvolution_1_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_708 = $signed(pixOut_1_5) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_711 = $signed(pixOut_1_5) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9507 = _T_711 ? 9'hf : pixOut_1_5; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9509 = _T_708 ? 9'h0 : _GEN_9507; // @[Filter.scala 183:43]
+  wire [9:0] _T_718 = $signed(KernelConvolution_1_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_719 = $signed(pixOut_1_6) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_722 = $signed(pixOut_1_6) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9512 = _T_722 ? 9'hf : pixOut_1_6; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9514 = _T_719 ? 9'h0 : _GEN_9512; // @[Filter.scala 183:43]
+  wire [9:0] _T_729 = $signed(KernelConvolution_1_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_730 = $signed(pixOut_1_7) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_733 = $signed(pixOut_1_7) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9517 = _T_733 ? 9'hf : pixOut_1_7; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9519 = _T_730 ? 9'h0 : _GEN_9517; // @[Filter.scala 183:43]
+  wire [9:0] _T_740 = $signed(KernelConvolution_2_io_pixelVal_out_0) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_741 = $signed(pixOut_2_0) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_744 = $signed(pixOut_2_0) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9522 = _T_744 ? 9'hf : pixOut_2_0; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9524 = _T_741 ? 9'h0 : _GEN_9522; // @[Filter.scala 183:43]
+  wire [9:0] _T_751 = $signed(KernelConvolution_2_io_pixelVal_out_1) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_752 = $signed(pixOut_2_1) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_755 = $signed(pixOut_2_1) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9527 = _T_755 ? 9'hf : pixOut_2_1; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9529 = _T_752 ? 9'h0 : _GEN_9527; // @[Filter.scala 183:43]
+  wire [9:0] _T_762 = $signed(KernelConvolution_2_io_pixelVal_out_2) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_763 = $signed(pixOut_2_2) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_766 = $signed(pixOut_2_2) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9532 = _T_766 ? 9'hf : pixOut_2_2; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9534 = _T_763 ? 9'h0 : _GEN_9532; // @[Filter.scala 183:43]
+  wire [9:0] _T_773 = $signed(KernelConvolution_2_io_pixelVal_out_3) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_774 = $signed(pixOut_2_3) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_777 = $signed(pixOut_2_3) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9537 = _T_777 ? 9'hf : pixOut_2_3; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9539 = _T_774 ? 9'h0 : _GEN_9537; // @[Filter.scala 183:43]
+  wire [9:0] _T_784 = $signed(KernelConvolution_2_io_pixelVal_out_4) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_785 = $signed(pixOut_2_4) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_788 = $signed(pixOut_2_4) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9542 = _T_788 ? 9'hf : pixOut_2_4; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9544 = _T_785 ? 9'h0 : _GEN_9542; // @[Filter.scala 183:43]
+  wire [9:0] _T_795 = $signed(KernelConvolution_2_io_pixelVal_out_5) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_796 = $signed(pixOut_2_5) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_799 = $signed(pixOut_2_5) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9547 = _T_799 ? 9'hf : pixOut_2_5; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9549 = _T_796 ? 9'h0 : _GEN_9547; // @[Filter.scala 183:43]
+  wire [9:0] _T_806 = $signed(KernelConvolution_2_io_pixelVal_out_6) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_807 = $signed(pixOut_2_6) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_810 = $signed(pixOut_2_6) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9552 = _T_810 ? 9'hf : pixOut_2_6; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9554 = _T_807 ? 9'h0 : _GEN_9552; // @[Filter.scala 183:43]
+  wire [9:0] _T_817 = $signed(KernelConvolution_2_io_pixelVal_out_7) / $signed(_GEN_9959); // @[Filter.scala 179:64]
+  wire  _T_818 = $signed(pixOut_2_7) < 9'sh0; // @[Filter.scala 181:30]
+  wire  _T_821 = $signed(pixOut_2_7) > 9'shf; // @[Filter.scala 186:36]
+  wire [8:0] _GEN_9557 = _T_821 ? 9'hf : pixOut_2_7; // @[Filter.scala 188:44]
+  wire [8:0] _GEN_9559 = _T_818 ? 9'h0 : _GEN_9557; // @[Filter.scala 183:43]
+  wire [31:0] _T_829 = pixelIndex + 32'h8; // @[Filter.scala 203:34]
+  wire [8:0] _T_830 = 5'h10 * 5'hc; // @[Filter.scala 204:42]
+  wire [31:0] _GEN_9983 = {{23'd0}, _T_830}; // @[Filter.scala 204:25]
+  wire  _T_831 = pixelIndex == _GEN_9983; // @[Filter.scala 204:25]
   KernelConvolution KernelConvolution ( // @[Filter.scala 142:36]
     .clock(KernelConvolution_clock),
     .reset(KernelConvolution_reset),
@@ -4602,31 +4628,31 @@ module Filter(
     .io_pixelVal_out_7(KernelConvolution_2_io_pixelVal_out_7),
     .io_valid_out(KernelConvolution_2_io_valid_out)
   );
-  assign io_pixelVal_out_0_0 = _GEN_9444[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_1 = _GEN_9449[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_2 = _GEN_9454[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_3 = _GEN_9459[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_4 = _GEN_9464[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_5 = _GEN_9469[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_6 = _GEN_9474[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_0_7 = _GEN_9479[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_0 = _GEN_9484[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_1 = _GEN_9489[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_2 = _GEN_9494[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_3 = _GEN_9499[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_4 = _GEN_9504[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_5 = _GEN_9509[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_6 = _GEN_9514[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_1_7 = _GEN_9519[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_0 = _GEN_9524[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_1 = _GEN_9529[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_2 = _GEN_9534[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_3 = _GEN_9539[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_4 = _GEN_9544[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_5 = _GEN_9549[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_6 = _GEN_9554[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_pixelVal_out_2_7 = _GEN_9559[3:0]; // @[Filter.scala 180:35 Filter.scala 182:37 Filter.scala 185:35 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35]
-  assign io_valid_out = KernelConvolution_io_valid_out; // @[Filter.scala 196:18]
+  assign io_pixelVal_out_0_0 = _GEN_9444[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_1 = _GEN_9449[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_2 = _GEN_9454[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_3 = _GEN_9459[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_4 = _GEN_9464[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_5 = _GEN_9469[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_6 = _GEN_9474[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_0_7 = _GEN_9479[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_0 = _GEN_9484[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_1 = _GEN_9489[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_2 = _GEN_9494[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_3 = _GEN_9499[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_4 = _GEN_9504[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_5 = _GEN_9509[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_6 = _GEN_9514[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_1_7 = _GEN_9519[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_0 = _GEN_9524[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_1 = _GEN_9529[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_2 = _GEN_9534[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_3 = _GEN_9539[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_4 = _GEN_9544[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_5 = _GEN_9549[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_6 = _GEN_9554[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_pixelVal_out_2_7 = _GEN_9559[3:0]; // @[Filter.scala 182:35 Filter.scala 184:37 Filter.scala 187:35 Filter.scala 189:35 Filter.scala 191:35 Filter.scala 193:35]
+  assign io_valid_out = validOut; // @[Filter.scala 200:18]
   assign KernelConvolution_clock = clock;
   assign KernelConvolution_reset = reset;
   assign KernelConvolution_io_kernelVal_in = _GEN_9645 & _GEN_9572 ? $signed(5'sh0) : $signed(_GEN_55); // @[Filter.scala 150:41]
@@ -4703,6 +4729,56 @@ initial begin
   imageCounterY = _RAND_2[1:0];
   _RAND_3 = {1{`RANDOM}};
   pixelIndex = _RAND_3[31:0];
+  _RAND_4 = {1{`RANDOM}};
+  pixOut_0_0 = _RAND_4[8:0];
+  _RAND_5 = {1{`RANDOM}};
+  pixOut_0_1 = _RAND_5[8:0];
+  _RAND_6 = {1{`RANDOM}};
+  pixOut_0_2 = _RAND_6[8:0];
+  _RAND_7 = {1{`RANDOM}};
+  pixOut_0_3 = _RAND_7[8:0];
+  _RAND_8 = {1{`RANDOM}};
+  pixOut_0_4 = _RAND_8[8:0];
+  _RAND_9 = {1{`RANDOM}};
+  pixOut_0_5 = _RAND_9[8:0];
+  _RAND_10 = {1{`RANDOM}};
+  pixOut_0_6 = _RAND_10[8:0];
+  _RAND_11 = {1{`RANDOM}};
+  pixOut_0_7 = _RAND_11[8:0];
+  _RAND_12 = {1{`RANDOM}};
+  pixOut_1_0 = _RAND_12[8:0];
+  _RAND_13 = {1{`RANDOM}};
+  pixOut_1_1 = _RAND_13[8:0];
+  _RAND_14 = {1{`RANDOM}};
+  pixOut_1_2 = _RAND_14[8:0];
+  _RAND_15 = {1{`RANDOM}};
+  pixOut_1_3 = _RAND_15[8:0];
+  _RAND_16 = {1{`RANDOM}};
+  pixOut_1_4 = _RAND_16[8:0];
+  _RAND_17 = {1{`RANDOM}};
+  pixOut_1_5 = _RAND_17[8:0];
+  _RAND_18 = {1{`RANDOM}};
+  pixOut_1_6 = _RAND_18[8:0];
+  _RAND_19 = {1{`RANDOM}};
+  pixOut_1_7 = _RAND_19[8:0];
+  _RAND_20 = {1{`RANDOM}};
+  pixOut_2_0 = _RAND_20[8:0];
+  _RAND_21 = {1{`RANDOM}};
+  pixOut_2_1 = _RAND_21[8:0];
+  _RAND_22 = {1{`RANDOM}};
+  pixOut_2_2 = _RAND_22[8:0];
+  _RAND_23 = {1{`RANDOM}};
+  pixOut_2_3 = _RAND_23[8:0];
+  _RAND_24 = {1{`RANDOM}};
+  pixOut_2_4 = _RAND_24[8:0];
+  _RAND_25 = {1{`RANDOM}};
+  pixOut_2_5 = _RAND_25[8:0];
+  _RAND_26 = {1{`RANDOM}};
+  pixOut_2_6 = _RAND_26[8:0];
+  _RAND_27 = {1{`RANDOM}};
+  pixOut_2_7 = _RAND_27[8:0];
+  _RAND_28 = {1{`RANDOM}};
+  validOut = _RAND_28[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -4737,11 +4813,136 @@ end // initial
     if (reset) begin
       pixelIndex <= 32'h0;
     end else if (kernelCountReset) begin
-      if (_T_828) begin
+      if (_T_831) begin
         pixelIndex <= 32'h0;
       end else begin
-        pixelIndex <= _T_826;
+        pixelIndex <= _T_829;
       end
+    end
+    if (reset) begin
+      pixOut_0_0 <= 9'sh0;
+    end else begin
+      pixOut_0_0 <= _T_564[8:0];
+    end
+    if (reset) begin
+      pixOut_0_1 <= 9'sh0;
+    end else begin
+      pixOut_0_1 <= _T_575[8:0];
+    end
+    if (reset) begin
+      pixOut_0_2 <= 9'sh0;
+    end else begin
+      pixOut_0_2 <= _T_586[8:0];
+    end
+    if (reset) begin
+      pixOut_0_3 <= 9'sh0;
+    end else begin
+      pixOut_0_3 <= _T_597[8:0];
+    end
+    if (reset) begin
+      pixOut_0_4 <= 9'sh0;
+    end else begin
+      pixOut_0_4 <= _T_608[8:0];
+    end
+    if (reset) begin
+      pixOut_0_5 <= 9'sh0;
+    end else begin
+      pixOut_0_5 <= _T_619[8:0];
+    end
+    if (reset) begin
+      pixOut_0_6 <= 9'sh0;
+    end else begin
+      pixOut_0_6 <= _T_630[8:0];
+    end
+    if (reset) begin
+      pixOut_0_7 <= 9'sh0;
+    end else begin
+      pixOut_0_7 <= _T_641[8:0];
+    end
+    if (reset) begin
+      pixOut_1_0 <= 9'sh0;
+    end else begin
+      pixOut_1_0 <= _T_652[8:0];
+    end
+    if (reset) begin
+      pixOut_1_1 <= 9'sh0;
+    end else begin
+      pixOut_1_1 <= _T_663[8:0];
+    end
+    if (reset) begin
+      pixOut_1_2 <= 9'sh0;
+    end else begin
+      pixOut_1_2 <= _T_674[8:0];
+    end
+    if (reset) begin
+      pixOut_1_3 <= 9'sh0;
+    end else begin
+      pixOut_1_3 <= _T_685[8:0];
+    end
+    if (reset) begin
+      pixOut_1_4 <= 9'sh0;
+    end else begin
+      pixOut_1_4 <= _T_696[8:0];
+    end
+    if (reset) begin
+      pixOut_1_5 <= 9'sh0;
+    end else begin
+      pixOut_1_5 <= _T_707[8:0];
+    end
+    if (reset) begin
+      pixOut_1_6 <= 9'sh0;
+    end else begin
+      pixOut_1_6 <= _T_718[8:0];
+    end
+    if (reset) begin
+      pixOut_1_7 <= 9'sh0;
+    end else begin
+      pixOut_1_7 <= _T_729[8:0];
+    end
+    if (reset) begin
+      pixOut_2_0 <= 9'sh0;
+    end else begin
+      pixOut_2_0 <= _T_740[8:0];
+    end
+    if (reset) begin
+      pixOut_2_1 <= 9'sh0;
+    end else begin
+      pixOut_2_1 <= _T_751[8:0];
+    end
+    if (reset) begin
+      pixOut_2_2 <= 9'sh0;
+    end else begin
+      pixOut_2_2 <= _T_762[8:0];
+    end
+    if (reset) begin
+      pixOut_2_3 <= 9'sh0;
+    end else begin
+      pixOut_2_3 <= _T_773[8:0];
+    end
+    if (reset) begin
+      pixOut_2_4 <= 9'sh0;
+    end else begin
+      pixOut_2_4 <= _T_784[8:0];
+    end
+    if (reset) begin
+      pixOut_2_5 <= 9'sh0;
+    end else begin
+      pixOut_2_5 <= _T_795[8:0];
+    end
+    if (reset) begin
+      pixOut_2_6 <= 9'sh0;
+    end else begin
+      pixOut_2_6 <= _T_806[8:0];
+    end
+    if (reset) begin
+      pixOut_2_7 <= 9'sh0;
+    end else begin
+      pixOut_2_7 <= _T_817[8:0];
+    end
+    if (reset) begin
+      validOut <= 1'h0;
+    end else begin
+      validOut <= KernelConvolution_io_valid_out;
     end
   end
 endmodule

@@ -171,29 +171,33 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
       }
 
       val normVal = kernelSums(io.SPI_filterIndex)
+      val pixOut = List(RegInit(VecInit(List.fill(parallelPixels)(0.S(9.W)))), RegInit(VecInit(List.fill(parallelPixels)(0.S(9.W)))), RegInit(VecInit(List.fill(parallelPixels)(0.S(9.W))))) // added to try to fix timing
+      val validOut = RegInit(Bool(), false.B)
 
       for (j <- 0 until 3) {
         for(i <- 0 until parallelPixels){
-          var pixOut = kernelConvolution(j).pixelVal_out(i) / normVal
+          pixOut(j)(i) := kernelConvolution(j).pixelVal_out(i) / normVal
 
-          when (pixOut < 0.S && colorInvert) {  // normalize (clip hi/lo and scale rest)
+          when (pixOut(j)(i) < 0.S && colorInvert) {  // normalize (clip hi/lo and scale rest)
             io.pixelVal_out(j)(i) := 15.U
-          } .elsewhen(pixOut < 0.S) {
+          } .elsewhen(pixOut(j)(i) < 0.S) {
               io.pixelVal_out(j)(i) := 0.U
               // io.pixelVal_out(j)(i) := (~pixOut + 1.S).asUInt
-          } .elsewhen(pixOut > 15.S && colorInvert) {
+          } .elsewhen(pixOut(j)(i) > 15.S && colorInvert) {
             io.pixelVal_out(j)(i) := 0.U
-          } .elsewhen(pixOut > 15.S) {
+          } .elsewhen(pixOut(j)(i) > 15.S) {
             io.pixelVal_out(j)(i) := 15.U
           } .elsewhen(colorInvert) {
-            io.pixelVal_out(j)(i) := 15.U - pixOut.asUInt
+            io.pixelVal_out(j)(i) := 15.U - pixOut(j)(i).asUInt
           } .otherwise {
-            io.pixelVal_out(j)(i) := pixOut.asUInt
+            io.pixelVal_out(j)(i) := pixOut(j)(i).asUInt
           }
         }
       }
       
-    io.valid_out := kernelConvolution(0).valid_out 
+    // io.valid_out := kernelConvolution(0).valid_out 
+    validOut := kernelConvolution(0).valid_out 
+    io.valid_out := validOut 
     
     when(kernelCountReset){
         pixelIndex := pixelIndex + parallelPixels.U
