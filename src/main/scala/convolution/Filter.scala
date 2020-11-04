@@ -157,12 +157,13 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
       for (i <- 0 until parallelPixels){
           val x = (pixelIndex + i.U) % imageWidth.U + imageCounterX - 1.U
           val y = (pixelIndex + i.U) / imageWidth.U + imageCounterY - 1.U
+          val greyScalePix = (image(0)(y * imageWidth.U + x) * 20.U + image(1)(y * imageWidth.U + x) * 70.U + image(2)(y * imageWidth.U + x) * 10.U) / 100.U
 
           for (j <- 0 until 3) {
             when(x < 0.U || x >= imageWidth.U || y < 0.U || y >= imageHeight.U){
                 kernelConvolution(j).pixelVal_in(i) := 0.U
             }.elsewhen(greyScale) {
-              kernelConvolution(j).pixelVal_in(i) := (image(0)(y * imageWidth.U + x) * 20.U + image(1)(y * imageWidth.U + x) * 70.U + image(2)(y * imageWidth.U + x) * 10.U) / 100.U
+              kernelConvolution(j).pixelVal_in(i) := greyScalePix
             } .otherwise {
               kernelConvolution(j).pixelVal_in(i) := image(j)(y * imageWidth.U + x)
             }
@@ -173,22 +174,21 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
 
       for (j <- 0 until 3) {
         for(i <- 0 until parallelPixels){
-          var pixOutRaw = kernelConvolution(j).pixelVal_out(i)
-          var pixOut = 0.U 
+          var pixOut = kernelConvolution(j).pixelVal_out(i) / normVal
 
-          when (pixOutRaw < 0.S) {  // normalize (clip hi/lo and scale rest)
-            // val pixOut = (~pixOutRaw + 1.S).asUInt // abs
-            pixOut = 0.U
-          } .elsewhen(pixOutRaw > 15.S) {
-            pixOut = 15.U 
+          when (pixOut < 0.S && colorInvert) {  // normalize (clip hi/lo and scale rest)
+            io.pixelVal_out(j)(i) := 15.U
+          } .elsewhen(pixOut < 0.S) {
+              io.pixelVal_out(j)(i) := 0.U
+              // io.pixelVal_out(j)(i) := (~pixOut + 1.S).asUInt
+          } .elsewhen(pixOut > 15.S && colorInvert) {
+            io.pixelVal_out(j)(i) := 0.U
+          } .elsewhen(pixOut > 15.S) {
+            io.pixelVal_out(j)(i) := 15.U
+          } .elsewhen(colorInvert) {
+            io.pixelVal_out(j)(i) := 15.U - pixOut.asUInt
           } .otherwise {
-            pixOut = (pixOutRaw / normVal).asUInt
-          }
-
-          when(colorInvert){
-            io.pixelVal_out(j)(i) := 15.U - pixOut
-          } .otherwise {
-            io.pixelVal_out(j)(i) := pixOut
+            io.pixelVal_out(j)(i) := pixOut.asUInt
           }
         }
       }
