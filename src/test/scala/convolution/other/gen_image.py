@@ -1,22 +1,32 @@
-width = 10
-height = 10 
+width = 16
+height = 9 
+# height = 12 
 
-template = [0, 50, 100, 200]
-
-out_path = "/home/katt/Desktop/image.txt"
-
-with open(out_path, 'w') as file:
-    index = 0
-    for i in range(width):
-        for j in range(height):
-            if (i < int(width / 2)) and (j < int(width / 2)):
-                index = 0 
-            elif (i < int(width / 2)) and (j >= int(width / 2)):
-                index = 1 
-            elif (i >= int(width / 2)) and (j < int(width / 2)):
-                index = 2 
-            elif (i >= int(width / 2)) and (i >= int(width / 2)):
-                index = 3 
-            file.write("{}.U(16.W), ".format(str(template[index])))
-        file.write("\n")
-
+r = [15, 0, 0, 15]
+g = [0, 15, 0, 15]
+b = [0, 0, 15, 15]
+templates = [r, g, b]
+colours = ["R", "G", "B"]
+k=0
+for template in templates:
+    out_path = colours[k] + ".txt"
+    with open(out_path, 'w') as file:
+        index = 0
+        file.write(" "*4)
+        file.write("val image{} = VecInit(\n".format(colours[k]))
+        for i in range(height):
+            file.write(" "*8)
+            for j in range(width):
+                if (i < height // 2) and (j < width // 2):
+                    index = 0 
+                elif (i < height // 2) and (j >= width // 2):
+                    index = 1 
+                elif (i >= height // 2) and (j < width // 2):
+                    index = 2 
+                elif (i >= height // 2) and (j >= width // 2):
+                    index = 3 
+                file.write("{}.U(4.W),".format(str(template[index])))
+            file.write("\n")
+        file.write(" "*4)
+        file.write(")\n")
+    k += 1
