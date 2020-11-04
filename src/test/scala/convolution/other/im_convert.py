@@ -31,9 +31,9 @@ def image2scala(im):
 
 # Controls:
 grey_scale = False
-path_in = "metroid.png"
+path_in = "crab.png"
 path_out = "out.png"
-scale = 2  
+scale = 1  
 
 # Main:
 if grey_scale:
