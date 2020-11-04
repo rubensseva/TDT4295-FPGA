@@ -25,16 +25,18 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
 
     for (k <- 0 until 3) {
 	  io.pixelVal_out(k) := image(k)(io.rowIndex * imageWidth.U + io.colIndex)
+    }
 
       when(io.valid_in){
+        for (k <- 0 until 3) {
           for(i <- 0 until parallelPixels){
               image(k)(pixelIndex + i.U) := io.pixelVal_in(k)(i)
           }
-      }
-    }
-    pixelIndex := pixelIndex + parallelPixels.U
-    when(pixelIndex === imageWidth.U * imageHeight.U){
-        pixelIndex := 0.U
+        }
+        pixelIndex := pixelIndex + parallelPixels.U
+        when(pixelIndex === imageWidth.U * imageHeight.U){
+          pixelIndex := 0.U
+        }
     }
 }
 
