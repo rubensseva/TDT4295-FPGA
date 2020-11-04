@@ -1,5 +1,6 @@
 width = 16
-height = 12 
+height = 9 
+# height = 12 
 
 r = [15, 0, 0, 15]
 g = [0, 15, 0, 15]
