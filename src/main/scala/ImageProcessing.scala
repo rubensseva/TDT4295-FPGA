@@ -41,9 +41,8 @@ class ImageProcessing(val imageWidth: Int, val imageHeight: Int, val parallelPix
 
 // main object for compilation 
 object ImageProcessingDriver extends App {
-  val imageWidth = 16 
-  val imageHeight = 9 
-  // val imageHeight = 12 
+  val imageWidth = 32 
+  val imageHeight = 18 
   val parallelPixels = 8
   val kernelSize = 3
   chisel3.Driver.execute(args, () => new ImageProcessing(imageWidth, imageHeight, parallelPixels, kernelSize))
