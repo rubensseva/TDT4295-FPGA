@@ -28,15 +28,10 @@ IMAGE  = np.array(
 
 OUT  = np.zeros([height, width])
 
-out_path = "./out.txt"
+out_path = "./convolved.txt"
 
 with open(out_path, 'w') as file:
     index = 0
-    # for i in range(width):
-        # for j in range(height):
-            # prod = np.dot(image(i, j,kernel)
-            # file.write("{}".format(str(prod)))
-            # a[1:2 ,1:3 ]
     for i in range(height):
         for j in range(width):
             il = i-kernel_dim//2

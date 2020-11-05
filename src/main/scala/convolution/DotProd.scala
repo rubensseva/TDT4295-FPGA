@@ -25,8 +25,6 @@ class DotProd(val elements: Int) extends Module {
   when(countReset) { // here on overflow
     io.outputValid := true.B
     accumulator := 0.S
-
-    printf("VALOUTidghspdolgnfgkln\n")
   } .otherwise {
     io.outputValid := false.B
   }

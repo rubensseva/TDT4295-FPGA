@@ -77,8 +77,8 @@ object FilterTests {
         0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W), 0.U(4.W)
     )*/
 
-    poke(c.io.SPI_invert, false.B)
-    poke(c.io.SPI_distort, false.B)
+    // poke(c.io.SPI_invert, false.B)
+    // poke(c.io.SPI_distort, false.B)
 
     /*println("running filter...................")
     step(c.kernelSize * c.kernelSize - 1)
