@@ -33,6 +33,7 @@ class ImageProcessing(val imageWidth: Int, val imageHeight: Int, val parallelPix
 
   val pixIn = VecInit(Seq.fill(3)(RegInit(VecInit(List.fill(parallelPixels)(0.U(4.W))))))
   val pixOut  = RegInit(VecInit(List.fill(3)(0.U(4.W))))
+  val valid   = RegInit(Bool(), false.B)
 
   for (k <- 0 until 3) {
     for(i <- 0 until parallelPixels){
@@ -43,7 +44,8 @@ class ImageProcessing(val imageWidth: Int, val imageHeight: Int, val parallelPix
      io.pixelVal_out(k) := pixOut(k)
     }
   }
-  videoBuffer.io.valid_in := filter.io.valid_out
+  valid := filter.io.valid_out
+  videoBuffer.io.valid_in := valid 
 }
 
 // main object for compilation 

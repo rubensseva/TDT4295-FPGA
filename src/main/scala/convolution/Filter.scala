@@ -171,7 +171,7 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
     
 
     //squares rgb
-    val imageR = VecInit(
+    val imageR = RegInit(VecInit(
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
@@ -184,8 +184,8 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-    )
-    val imageG = VecInit(
+    ))
+    val imageG = RegInit(VecInit(
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
@@ -198,8 +198,8 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-    )
-    val imageB = VecInit(
+    ))
+    val imageB = RegInit(VecInit(
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
         0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),0.U(4.W),
@@ -212,7 +212,7 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
         15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),15.U(4.W),
-    )
+    ))
 
     val image = List(imageR, imageB, imageG)
 
