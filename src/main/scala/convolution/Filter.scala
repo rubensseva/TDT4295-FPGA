@@ -179,8 +179,8 @@ class Filter(val imageWidth: Int, val imageHeight: Int, val parallelPixels: Int,
 
 // main object for compilation 
 object FilterDriver extends App {
-  val imageWidth = 96 
-  val imageHeight = 54 
+  val imageWidth = 16 
+  val imageHeight = 12 
   val parallelPixels = 8
   val kernelSize = 3
   chisel3.Driver.execute(args, () => new Filter(imageWidth, imageHeight, parallelPixels, kernelSize))
