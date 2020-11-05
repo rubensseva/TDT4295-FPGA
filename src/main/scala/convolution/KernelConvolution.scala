@@ -27,11 +27,16 @@ class KernelConvolution(val kernelSize: Int, val nModules: Int) extends Module {
         dotProdCalc(i).dataInB  := 0.S
     }*/
     
+    val validOut = RegInit(Bool(), false.B)
+    validOut := dotProdCalc(0).outputValid // one represents all
+	val pixOut = RegInit(VecInit(List.fill(nModules)(0.S(9.W))))
+
     for(i <- 0 until nModules){
         dotProdCalc(i).dataInA   := io.pixelVal_in(i)
         dotProdCalc(i).dataInB   := io.kernelVal_in
-        io.pixelVal_out(i)       := dotProdCalc(i).dataOut
+        pixOut(i)                := dotProdCalc(i).dataOut
+        io.pixelVal_out(i)       := pixOut(i)
     }
-    io.valid_out             := dotProdCalc(0).outputValid // one represents all
+    io.valid_out             := validOut
 }
 
