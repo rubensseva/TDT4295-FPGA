@@ -30,13 +30,22 @@ class ImageProcessing(val imageWidth: Int, val imageHeight: Int, val parallelPix
   filter.io.SPI_invert      := io.SPI_invert
   filter.io.SPI_distort     := io.SPI_distort
   
+
+  val pixIn = VecInit(Seq.fill(3)(RegInit(VecInit(List.fill(parallelPixels)(0.U(4.W))))))
+  val pixOut  = RegInit(VecInit(List.fill(3)(0.U(4.W))))
+  val valid   = RegInit(Bool(), false.B)
+
   for (k <- 0 until 3) {
     for(i <- 0 until parallelPixels){
-     videoBuffer.io.pixelVal_in(k)(i) := filter.io.pixelVal_out(k)(i)
-     io.pixelVal_out(k) := videoBuffer.io.pixelVal_out(k)
+     pixIn(k)(i) := filter.io.pixelVal_out(k)(i)
+     videoBuffer.io.pixelVal_in(k)(i) := pixIn(k)(i)
+
+     pixOut(k) := videoBuffer.io.pixelVal_out(k)
+     io.pixelVal_out(k) := pixOut(k)
     }
   }
-  videoBuffer.io.valid_in := filter.io.valid_out
+  valid := filter.io.valid_out
+  videoBuffer.io.valid_in := valid 
 }
 
 // main object for compilation 

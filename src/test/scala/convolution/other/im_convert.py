@@ -20,14 +20,14 @@ def image2scala(im):
         out_path = colours[k] + ".txt"
         with open(out_path, 'w') as file:
             file.write(" "*4)
-            file.write("val image{} = VecInit(\n".format(colours[k]))
+            file.write("val image{} = RegInit(VecInit(\n".format(colours[k]))
             for i in range(im.shape[0]):
                 file.write(" "*8)
                 for j in range(im.shape[1]):
                     file.write("{}.U(4.W),".format(str(im[i][j][k] * 15 // 255)))
                 file.write("\n")
             file.write(" "*4)
-            file.write(")\n")
+            file.write("))\n")
 
 # Controls:
 grey_scale = False
