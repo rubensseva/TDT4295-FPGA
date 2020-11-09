@@ -10,9 +10,9 @@ set_property -dict {PACKAGE_PIN D9  IOSTANDARD LVCMOS33} [get_ports { reset }];
 
 ## ChipKit SPI
 #set_property -dict { PACKAGE_PIN G1    IOSTANDARD LVCMOS33 } [get_ports { ck_miso }];                #IO_L17N_T2_35 Sch=ck_miso
-set_property -dict { PACKAGE_PIN H1    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_MOSI }];      #IO_L17P_T2_35 Sch=ck_mosi
-set_property -dict { PACKAGE_PIN F1    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_SCLK }];      #IO_L18P_T2_35 Sch=ck_sck
-set_property -dict { PACKAGE_PIN C1    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_SS }];        #IO_L16N_T2_35 Sch=ck_ss
+set_property -dict { PACKAGE_PIN H1    IOSTANDARD LVCMOS33 } [get_ports { MOSI }];      #IO_L17P_T2_35 Sch=ck_mosi
+set_property -dict { PACKAGE_PIN F1    IOSTANDARD LVCMOS33 } [get_ports { CLK }];      #IO_L18P_T2_35 Sch=ck_sck
+set_property -dict { PACKAGE_PIN C1    IOSTANDARD LVCMOS33 } [get_ports { SS }];        #IO_L16N_T2_35 Sch=ck_ss
 
 ## LEDs
 set_property -dict { PACKAGE_PIN H5    IOSTANDARD LVCMOS33 } [get_ports { led[0] }]; #IO_L24N_T3_35 Sch=led[4]
