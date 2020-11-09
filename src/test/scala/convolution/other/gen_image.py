@@ -13,7 +13,7 @@ for template in templates:
     with open(out_path, 'w') as file:
         index = 0
         file.write(" "*4)
-        file.write("val image{} = VecInit(\n".format(colours[k]))
+        file.write("val image{} = RegInit(VecInit(\n".format(colours[k]))
         for i in range(height):
             file.write(" "*8)
             for j in range(width):
@@ -28,5 +28,5 @@ for template in templates:
                 file.write("{}.U(4.W),".format(str(template[index])))
             file.write("\n")
         file.write(" "*4)
-        file.write(")\n")
+        file.write("))\n")
     k += 1
