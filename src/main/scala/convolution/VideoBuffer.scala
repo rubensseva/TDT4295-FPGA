@@ -22,16 +22,12 @@ class VideoBuffer(val imageWidth: Int, val imageHeight: Int, val parallelPixels:
     val image = List(imageR, imageG, imageB)
 
 	val pixelIndex = RegInit(UInt(32.W), 0.U)
-	val pixOut = RegInit(VecInit(List.fill(3)(0.U(4.W))))
-    val valid = RegInit(Bool(), false.B)
-    valid := io.valid_in
 
     for (k <- 0 until 3) {
-      pixOut(k) := image(k)(io.rowIndex * imageWidth.U + io.colIndex)
-	  io.pixelVal_out(k) := pixOut(k) 
+	  io.pixelVal_out(k) := image(k)(io.rowIndex * imageWidth.U + io.colIndex)
     }
 
-      when(valid){
+      when(io.valid_in){
         for (k <- 0 until 3) {
           for(i <- 0 until parallelPixels){
               image(k)(pixelIndex + i.U) := io.pixelVal_in(k)(i)
