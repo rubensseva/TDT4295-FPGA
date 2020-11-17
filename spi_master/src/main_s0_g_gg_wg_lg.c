@@ -15,16 +15,16 @@
 #include "em_usart.h"
 
 // Breadboard buttons.
-// #define BTN1_PIN        0
-// #define BTN2_PIN        3
-// #define BTN3_PIN        4
-// #define BTN4_PIN        5
+#define BTN1_PIN        0
+#define BTN2_PIN        3
+#define BTN3_PIN        4
+#define BTN4_PIN        5
 
 // PCB Buttons.
-#define PCB_BTN1        4
+/* #define PCB_BTN1        4
 #define PCB_BTN2        5
 #define PCB_SW1         6
-#define PCB_SW2         7
+#define PCB_SW2         7 */
 
 // PCB Buttons PORT.
 #define PCB_PORT        gpioPortE
@@ -63,14 +63,14 @@ bool bt4 = 0;
 void GPIO_EVEN_IRQHandler(void) 
 {
   // Toggle GPIO pin For Debugging.
- //  GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
+  //  GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
   // GPIO_PinOutToggle(PCB_PORT, PCB_PIN1);
 
-  // bt1 = GPIO_PinInGet(BTN_PORT, BTN1_PIN);
-  // bt3 = GPIO_PinInGet(BTN_PORT, BTN3_PIN);
+  bt1 = GPIO_PinInGet(BTN_PORT, BTN1_PIN);
+  bt3 = GPIO_PinInGet(BTN_PORT, BTN3_PIN);
 
-  bt1 = GPIO_PinInGet(PCB_PORT, PCB_BTN1);
-  bt3 = GPIO_PinInGet(PCB_PORT, PCB_SW1);
+  /* bt1 = GPIO_PinInGet(PCB_PORT, PCB_BTN1);
+  bt3 = GPIO_PinInGet(PCB_PORT, PCB_SW1) */;
 
   // Clear All Even Pin Interrupt Flags.
   GPIO_IntClear(0x5555);
@@ -99,7 +99,7 @@ void GPIO_EVEN_IRQHandler(void)
 void GPIO_ODD_IRQHandler(void) 
 {
   // Toggle GPIO pin For Debugging.
-  GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
+  // GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
   // GPIO_PinOutToggle(PCB_PORT, PCB_PIN1);
 
   bt2 = GPIO_PinInGet(BTN_PORT, BTN2_PIN);
@@ -211,7 +211,7 @@ void initGPIO(void)
   GPIO_PinModeSet(BSP_GPIO_PB1_PORT, BSP_GPIO_PB1_PIN, gpioModeInputPullFilter, 1);
 
   // Set bredboard buttons to input.
-  GPIO_PinModeSet(BTN_PORT, BTN1_PIN, gpioModeInput, 0);
+   GPIO_PinModeSet(BTN_PORT, BTN1_PIN, gpioModeInput, 0);
    GPIO_PinModeSet(BTN_PORT, BTN2_PIN, gpioModeInput, 0);
    GPIO_PinModeSet(BTN_PORT, BTN3_PIN, gpioModeInput, 0);
    GPIO_PinModeSet(BTN_PORT, BTN4_PIN, gpioModeInput, 0);
