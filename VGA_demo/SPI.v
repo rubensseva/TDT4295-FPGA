@@ -1,3 +1,24 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 11/10/2020 08:00:02 PM
+// Design Name: 
+// Module Name: spi
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
 module EdgeDetect(
   input   clock,
   input   reset,
@@ -210,12 +231,27 @@ end // initial
     end
   end
 endmodule
+
+module Synchronizer(
+    input SPI_clock,
+    input clock,
+    
+    output SPI_clock_synced
+);
+    reg [1:0] temp;
+    always @(posedge clock)
+        temp = SPI_clock;
+        
+    assign SPI_clock_synced = temp;
+endmodule
+
 module SPISlave(
   input        clock,
   input        reset,
   input        io_SPISignals_SCLK,
   input        io_SPISignals_MOSI,
   input        io_SPISignals_SS,
+  
   output [7:0] io_currentByte,
   output       io_isCurrentlyReading
 );
@@ -231,12 +267,23 @@ module SPISlave(
   wire  _T = ~io_SPISignals_SS; // @[SPISlave.scala 29:9]
   wire  _GEN_0 = edgeDetect_io_edge; // @[SPISlave.scala 31:31]
   wire  _GEN_1 = edgeDetect_io_edge & io_SPISignals_MOSI; // @[SPISlave.scala 31:31]
+  
+  wire SPI_synced;
+  
+  Synchronizer synchronizer (
+    .clock(clock),
+    .SPI_clock(io_SPISignals_SCLK),
+    .SPI_clock_synced(SPI_synced)
+  );
+  
+  
   EdgeDetect edgeDetect ( // @[SPISlave.scala 18:26]
     .clock(edgeDetect_clock),
     .reset(edgeDetect_reset),
     .io_din(edgeDetect_io_din),
     .io_edge(edgeDetect_io_edge)
   );
+  
   ShiftRegister shiftRegister ( // @[SPISlave.scala 21:29]
     .clock(shiftRegister_clock),
     .reset(shiftRegister_reset),
@@ -244,13 +291,15 @@ module SPISlave(
     .io_enable(shiftRegister_io_enable),
     .io_out(shiftRegister_io_out)
   );
+  
   assign io_currentByte = shiftRegister_io_out; // @[SPISlave.scala 25:18]
   assign io_isCurrentlyReading = ~io_SPISignals_SS; // @[SPISlave.scala 16:25 SPISlave.scala 30:27]
   assign edgeDetect_clock = clock;
   assign edgeDetect_reset = reset;
-  assign edgeDetect_io_din = io_SPISignals_SCLK; // @[SPISlave.scala 19:21]
+  assign edgeDetect_io_din = SPI_synced; // @[SPISlave.scala 19:21]
   assign shiftRegister_clock = clock;
   assign shiftRegister_reset = reset;
   assign shiftRegister_io_in = _T & _GEN_1; // @[SPISlave.scala 23:23 SPISlave.scala 33:27]
-  assign shiftRegister_io_enable = _T & _GEN_0; // @[SPISlave.scala 22:27 SPISlave.scala 32:31]
+  assign shiftRegister_io_enable = _T & _GEN_0; // @[SPISlave.scala 22:27 SPISlave.scala 32:31]-
+
 endmodule
