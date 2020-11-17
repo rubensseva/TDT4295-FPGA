@@ -63,7 +63,7 @@ bool bt4 = 0;
 void GPIO_EVEN_IRQHandler(void) 
 {
   // Toggle GPIO pin For Debugging.
-  GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
+ //  GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
   // GPIO_PinOutToggle(PCB_PORT, PCB_PIN1);
 
   // bt1 = GPIO_PinInGet(BTN_PORT, BTN1_PIN);
@@ -102,11 +102,11 @@ void GPIO_ODD_IRQHandler(void)
   GPIO_PinModeSet(PCB_PORT, PCB_PIN1, gpioModePushPull, 1);
   // GPIO_PinOutToggle(PCB_PORT, PCB_PIN1);
 
-  // bt2 = GPIO_PinInGet(BTN_PORT, BTN2_PIN);
-  // bt4 = GPIO_PinInGet(BTN_PORT, BTN4_PIN);
+  bt2 = GPIO_PinInGet(BTN_PORT, BTN2_PIN);
+  bt4 = GPIO_PinInGet(BTN_PORT, BTN4_PIN);
 
-  bt2 = GPIO_PinInGet(PCB_PORT, PCB_BTN2);
-  bt4 = GPIO_PinInGet(PCB_PORT, PCB_SW2);
+  // bt2 = GPIO_PinInGet(PCB_PORT, PCB_BTN2);
+  // bt4 = GPIO_PinInGet(PCB_PORT, PCB_SW2);
 
   // Clear all odd pin interrupt flags
   GPIO_IntClear(0xAAAA);
@@ -211,16 +211,16 @@ void initGPIO(void)
   GPIO_PinModeSet(BSP_GPIO_PB1_PORT, BSP_GPIO_PB1_PIN, gpioModeInputPullFilter, 1);
 
   // Set bredboard buttons to input.
-  // GPIO_PinModeSet(BTN_PORT, BTN1_PIN, gpioModeInput, 0);
-  // GPIO_PinModeSet(BTN_PORT, BTN2_PIN, gpioModeInput, 0);
-  // GPIO_PinModeSet(BTN_PORT, BTN3_PIN, gpioModeInput, 0);
-  // GPIO_PinModeSet(BTN_PORT, BTN4_PIN, gpioModeInput, 0);
+  GPIO_PinModeSet(BTN_PORT, BTN1_PIN, gpioModeInput, 0);
+   GPIO_PinModeSet(BTN_PORT, BTN2_PIN, gpioModeInput, 0);
+   GPIO_PinModeSet(BTN_PORT, BTN3_PIN, gpioModeInput, 0);
+   GPIO_PinModeSet(BTN_PORT, BTN4_PIN, gpioModeInput, 0);
 
   // PCB Buttons Pins.
-  GPIO_PinModeSet(PCB_PORT, PCB_BTN1, gpioModeInput, 0);
-  GPIO_PinModeSet(PCB_PORT, PCB_BTN2, gpioModeInput, 0);
-  GPIO_PinModeSet(PCB_PORT, PCB_SW1, gpioModeInput, 0);
-  GPIO_PinModeSet(PCB_PORT, PCB_SW2, gpioModeInput, 0);
+ //  GPIO_PinModeSet(PCB_PORT, PCB_BTN1, gpioModeInput, 0);
+  // GPIO_PinModeSet(PCB_PORT, PCB_BTN2, gpioModeInput, 0);
+ //  GPIO_PinModeSet(PCB_PORT, PCB_SW1, gpioModeInput, 0);
+ // GPIO_PinModeSet(PCB_PORT, PCB_SW2, gpioModeInput, 0);
 
   // Configure LED0 and LED1 as output
   // GPIO_PinModeSet(BSP_GPIO_LED0_PORT, BSP_GPIO_LED0_PIN, gpioModePushPull, 0);
@@ -237,16 +237,16 @@ void initGPIO(void)
   // GPIO_ExtIntConfig(BSP_GPIO_PB1_PORT, BSP_GPIO_PB1_PIN, BSP_GPIO_PB1_PIN, 0, 1, true);
 
   // Setup Interrupts bredboard.
-  // GPIO_ExtIntConfig(BTN_PORT, BTN1_PIN, BTN1_PIN, 1, 0, true);
-  // GPIO_ExtIntConfig(BTN_PORT, BTN2_PIN, BTN2_PIN, 1, 0, true);
-  // GPIO_ExtIntConfig(BTN_PORT, BTN3_PIN, BTN3_PIN, 1, 0, true);
-  // GPIO_ExtIntConfig(BTN_PORT, BTN4_PIN, BTN4_PIN, 1, 0, true);
+  GPIO_ExtIntConfig(BTN_PORT, BTN1_PIN, BTN1_PIN, 1, 0, true);
+  GPIO_ExtIntConfig(BTN_PORT, BTN2_PIN, BTN2_PIN, 1, 0, true);
+  GPIO_ExtIntConfig(BTN_PORT, BTN3_PIN, BTN3_PIN, 1, 0, true);
+  GPIO_ExtIntConfig(BTN_PORT, BTN4_PIN, BTN4_PIN, 1, 0, true);
 
   // Setup interrupts PCB.
-  GPIO_ExtIntConfig(PCB_PORT, PCB_BTN1, PCB_BTN1, 1, 0, true);
+  /* GPIO_ExtIntConfig(PCB_PORT, PCB_BTN1, PCB_BTN1, 1, 0, true);
   GPIO_ExtIntConfig(PCB_PORT, PCB_BTN2, PCB_BTN2, 1, 0, true);
   GPIO_ExtIntConfig(PCB_PORT, PCB_SW1, PCB_SW1, 1, 0, true);
-  GPIO_ExtIntConfig(PCB_PORT, PCB_SW2, PCB_SW2, 1, 0, true);
+  GPIO_ExtIntConfig(PCB_PORT, PCB_SW2, PCB_SW2, 1, 0, true); */
 
 }
 
