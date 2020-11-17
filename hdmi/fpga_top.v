@@ -5,6 +5,9 @@ module fpga_top
      input           clk_i
     ,input           clk_x5_i
     ,input           rst_i
+    ,input           io_SPISignals_MOSI
+    ,input           io_SPISignals_SS
+    ,input           io_SPISignals_SCLK
 
     // Outputs
     ,output          dvi_red_o

@@ -14,6 +14,13 @@ create_generated_clock -name clkout1 -source [get_nets u_pll/clkref_i] -multiply
 set_clock_groups -name clk_grp -asynchronous -group [get_clocks clkout0] -group [get_clocks clkout1]
 
 
+
+set_property -dict { PACKAGE_PIN P16    IOSTANDARD LVCMOS33 } [get_ports { io_SPITest_MOSI }]; #IO_L12N_T1_MRCC_16 Sch=sw[0]
+set_property -dict { PACKAGE_PIN P15    IOSTANDARD LVCMOS33 } [get_ports { io_SPITest_SS }]; #IO_L12N_T1_MRCC_16 Sch=sw[0]
+set_property -dict { PACKAGE_PIN N16    IOSTANDARD LVCMOS33 } [get_ports { io_SPITest_SCLK }]; #IO_L12N_T1_MRCC_16 Sch=sw[0]
+
+
+
 ##Switches
 
 #set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS33 } [get_ports { sw[0] }]; #IO_L12N_T1_MRCC_16 Sch=sw[0]
@@ -69,6 +76,11 @@ set_property -dict { PACKAGE_PIN B7   IOSTANDARD TMDS_33 } [get_ports { tmds_out
 set_property -dict { PACKAGE_PIN A7   IOSTANDARD TMDS_33 } [get_ports { tmds_out_n[2] }]; #IO_L23N_T3_FWE_B_15 Sch=jb_n[3]
 set_property -dict { PACKAGE_PIN B4   IOSTANDARD TMDS_33 } [get_ports { tmds_out_p[3] }]; #IO_L24P_T3_RS1_15 Sch=jb_p[4]
 set_property -dict { PACKAGE_PIN A3   IOSTANDARD TMDS_33 } [get_ports { tmds_out_n[3] }]; #IO_L24N_T3_RS0_15 Sch=jb_n[4]
+
+set_property -dict { PACKAGE_PIN C4    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_MOSI }];
+set_property -dict { PACKAGE_PIN F5    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_SS }];
+set_property -dict { PACKAGE_PIN E5    IOSTANDARD LVCMOS33 } [get_ports { io_SPISignals_SCLK }];
+
 
 ##Pmod Header JC
 

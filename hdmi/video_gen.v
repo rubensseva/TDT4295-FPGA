@@ -15,6 +15,9 @@ module video_gen
     // Inputs
      input           clk_i
     ,input           rst_i
+    ,input           io_SPISignals_MOSI
+    ,input           io_SPISignals_SS
+    ,input           io_SPISignals_SCLK
 
     // Outputs
     ,output [  7:0]  vga_red_o
@@ -131,94 +134,42 @@ else if (v_pos_q >= V_SYNC_START && v_pos_q < V_SYNC_END)
 else
     v_sync_q  <= 1'b0;
 
-// 75% white   (192, 192, 192)
-// 75% yellow  (192, 192, 0)
-// 75% cyan    (0, 192, 192)
-// 75% green   (0, 192, 0)
-// 75% magenta (192, 0, 192)
-// 75% red (192, 0, 0)
-// 75% blue    (0, 0, 192)
-/*
-reg [7:0] red_r;
-reg [7:0] green_r;
-reg [7:0] blue_r;
-
-always @ *
-begin
-    red_r   = 8'b0;
-    green_r = 8'b0;
-    blue_r  = 8'b0;
-
-    if (h_pos_q <= C0_E)
-    begin
-        red_r   = 8'd192;
-        green_r = 8'd192;
-        blue_r  = 8'd192;
-    end
-    else if (h_pos_q >= C1_S && h_pos_q <= C1_E)
-    begin
-        red_r   = 8'd192;
-        green_r = 8'd192;
-        blue_r  = 8'd0;
-    end
-    else if (h_pos_q >= C2_S && h_pos_q <= C2_E)
-    begin
-        red_r   = 8'd0;
-        green_r = 8'd192;
-        blue_r  = 8'd192;
-    end
-    else if (h_pos_q >= C3_S && h_pos_q <= C3_E)
-    begin
-        red_r   = 8'd0;
-        green_r = 8'd192;
-        blue_r  = 8'd0;
-    end
-    else if (h_pos_q >= C4_S && h_pos_q <= C4_E)
-    begin
-        red_r   = 8'd192;
-        green_r = 8'd0;
-        blue_r  = 8'd192;
-    end
-    else if (h_pos_q >= C5_S && h_pos_q <= C5_E)
-    begin
-        red_r   = 8'd192;
-        green_r = 8'd0;
-        blue_r  = 8'd0;
-    end
-    else //if (h_pos_q >= C6_S && h_pos_q <= C6_E)
-    begin
-        red_r   = 8'd0;
-        green_r = 8'd0;
-        blue_r  = 8'd192;
-    end
-end
-*/
-
 reg [10:0] rowIndex;
 reg [10:0] colIndex;
 wire [3:0] pixelValueR;
 wire [3:0] pixelValueG;
 wire [3:0] pixelValueB;
-reg [5:0] filterIndex = 5'b0;
-reg filterInvert = 1'b0;
-reg filterDistort = 1'b0;
+wire [5:0] filterIndex_r;
+wire filterInvert_r;
+wire filterDistort_r;
+
+spiTop spi(
+    .clock(clk_i),
+    .reset(rst_i),
+    .MOSI(io_SPISignals_MOSI),
+    .SS(io_SPISignals_SS),
+    .CLK(io_SPISignals_SCLK),
+    .filterIndex(filterIndex_r),
+    .colorInvert(filterInvert_r),
+    .grayscale(filterDistort_r)
+    );
 
 ImageProcessing imageProcessing(
     .clock(clk_i),
     .reset(rst_i),
     .io_rowIndex(rowIndex),
     .io_colIndex(colIndex),
-    .io_SPI_filterIndex(filterIndex),
-    .io_SPI_invert(filterInvert),
-    .io_SPI_distort(filterDistort),
+    .io_SPI_filterIndex(filterIndex_r),
+    .io_SPI_invert(filterInvert_r),
+    .io_SPI_distort(filterDistort_r),
     .io_pixelVal_out_0(pixelValueR),
     .io_pixelVal_out_1(pixelValueG),
     .io_pixelVal_out_2(pixelValueB)
 );
 
 always @ * begin
-    rowIndex = v_pos_q / 92;
-    colIndex = h_pos_q / 90;
+    rowIndex = v_pos_q / 90;
+    colIndex = h_pos_q / 120;
 end
 
 assign vga_red_o   = pixelValueR << 4;

@@ -3,10 +3,23 @@
 //-----------------------------------------------------------------
 module top
 (
-    input           clk100mhz,
-    output [3:0]    tmds_out_p,
-    output [3:0]    tmds_out_n    
+    input           clk100mhz
+    ,input           io_SPISignals_MOSI
+    ,input           io_SPISignals_SS
+    ,input           io_SPISignals_SCLK
+    ,output [3:0]    tmds_out_p
+    ,output [3:0]    tmds_out_n
+    ,output         io_SPITest_MOSI  // Debug, safe to delete
+    ,output         io_SPITest_SS    // Debug, safe to delete
+    ,output         io_SPITest_SCLK // Debug, safe to delete
 );
+
+//-----------------------------------------------------------------
+// Debug
+//-----------------------------------------------------------------
+assign io_SPITest_MOSI = io_SPISignals_MOSI;
+assign io_SPITest_SS = io_SPISignals_SS;
+assign io_SPITest_SCLK = io_SPISignals_SCLK;
 
 //-----------------------------------------------------------------
 // Implementation
