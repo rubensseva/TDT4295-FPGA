@@ -50,7 +50,9 @@ class ImageProcessing(val imageWidth: Int, val imageHeight: Int, val parallelPix
 
 // main object for compilation 
 object ImageProcessingDriver extends App {
-  val imageWidth = 16
+  // val imageWidth = 32 // crab
+  // val imageHeight = 18
+  val imageWidth = 16 // squares
   val imageHeight = 12
   val parallelPixels = 8
   val kernelSize = 3
